@@ -1,11 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum TowerType
-{
-
-}
-
 public abstract class BaseTower : MonoBehaviour
 {
     public float attackPower;

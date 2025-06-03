@@ -4,8 +4,30 @@
         {
             "name": "Player",
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "LClick",
+                    "type": "Button",
+                    "id": "b803380c-ffe7-4bdd-9dfe-4aa69731b561",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cdc671f7-a2df-4f2b-aa11-e0cca30e75f0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         },
         {
             "name": "UI",
