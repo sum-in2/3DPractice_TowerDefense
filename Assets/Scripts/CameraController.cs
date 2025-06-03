@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraDragController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     public float dragSpeed = 0.1f;
     private Camera cam;
