@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class ClickManager : Singleton<ClickManager>
+public class ClickManager : MonoBehaviour
 {
     public void OnLClick(InputAction.CallbackContext context)
     {
@@ -13,7 +13,7 @@ public class ClickManager : Singleton<ClickManager>
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            var clickable = hit.collider.GetComponent<IClickable>();
+            IClickable clickable = hit.collider.GetComponent<IClickable>();
             if (clickable != null)
             {
                 clickable.OnSelect();
