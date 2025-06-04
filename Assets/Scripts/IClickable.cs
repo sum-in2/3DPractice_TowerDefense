@@ -1,4 +1,5 @@
 public interface IClickable
 {
-    void OnClick();
+    void OnSelect();
+    void OnDeselect();
 }

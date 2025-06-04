@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class ClickManager : Singleton<ClickManager>
 {
@@ -15,7 +16,24 @@ public class ClickManager : Singleton<ClickManager>
             var clickable = hit.collider.GetComponent<IClickable>();
             if (clickable != null)
             {
-                clickable.OnClick();
+                clickable.OnSelect();
+                DeselectAllExcept(clickable);
+            }
+        }
+    }
+
+    private void DeselectAllExcept(IClickable selected)
+    {
+        Scene activeScene = SceneManager.GetActiveScene();
+        GameObject[] roots = activeScene.GetRootGameObjects();
+
+        foreach (GameObject root in roots)
+        {
+            IClickable[] clickables = root.GetComponentsInChildren<IClickable>(true); // 비활성 포함
+            foreach (IClickable clickable in clickables)
+            {
+                if (clickable != selected)
+                    clickable.OnDeselect();
             }
         }
     }
