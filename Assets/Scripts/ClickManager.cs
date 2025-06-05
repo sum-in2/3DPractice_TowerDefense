@@ -1,16 +1,26 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class ClickManager : MonoBehaviour
+public class ClickManager : Singleton<ClickManager>
 {
+    private Camera mainCamera;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        mainCamera = GetComponent<Camera>();
+    }
+
     public void OnLClick(InputAction.CallbackContext context)
     {
-        if (context.phase != InputActionPhase.Started)
+        if (!context.started)
             return;
 
-        Vector2 mousePos = Mouse.current.position.ReadValue(); // 마우스 좌표 저장
+        Vector2 mousePos = Mouse.current?.position.ReadValue() ?? Vector2.zero;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             IClickable clickable = hit.collider.GetComponent<IClickable>();
@@ -22,6 +32,11 @@ public class ClickManager : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 모든 IClickable 오브젝트의 선택을 해제합니다
+    /// </summary>
+    /// <param name="selected"></param>
     private void DeselectAllExcept(IClickable selected)
     {
         Scene activeScene = SceneManager.GetActiveScene();
@@ -29,7 +44,7 @@ public class ClickManager : MonoBehaviour
 
         foreach (GameObject root in roots)
         {
-            IClickable[] clickables = root.GetComponentsInChildren<IClickable>(true); // 비활성 포함
+            IClickable[] clickables = root.GetComponentsInChildren<IClickable>(true);
             foreach (IClickable clickable in clickables)
             {
                 if (clickable != selected)

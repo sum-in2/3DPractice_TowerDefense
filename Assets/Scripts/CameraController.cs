@@ -14,7 +14,6 @@ public class CameraController : MonoBehaviour
     private Camera cam;
     private bool isDragging = false;
 
-    // 러프용 변수
     private float targetZoom;
     private float zoomVelocity = 0f;
 
