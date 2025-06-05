@@ -1,10 +1,18 @@
 using UnityEngine;
+using System;
 
 public class UIPopup : UIBase
 {
+    public PopupType popupType { get; private set; }
     protected override void Init()
     {
-        // Popup 특화 초기화
-        // 예: Manager.Instance.mUIManager.SetCanvas(this.gameObject, true);
+        if (Enum.TryParse<PopupType>(transform.name, out PopupType result))
+        {
+            popupType = result;
+        }
+        else
+        {
+            Debug.Log("변환 실패");
+        }
     }
 }

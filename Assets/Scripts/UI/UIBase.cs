@@ -15,13 +15,15 @@ public abstract class UIBase : MonoBehaviour
     public virtual void Show()
     {
         gameObject.SetActive(true);
-        canvas.enabled = true;
+        if (canvas != null)
+            canvas.enabled = true;
     }
 
     public virtual void Hide()
     {
         gameObject.SetActive(false);
-        canvas.enabled = false;
+        if (canvas != null)
+            canvas.enabled = false;
     }
 
     public void SetSortingOrder(int order)

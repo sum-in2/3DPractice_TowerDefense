@@ -2,16 +2,28 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
+using Unity.VisualScripting;
 
 public class UIManager : Singleton<UIManager>
 {
-    public T ShowPopup<T>(PopupType popupType) where T : UIPopup
+    private PopupManager popupManager;
+    private StateManager stateManager;
+
+    protected override void Awake()
     {
-        return PopupManager.Instance.ShowPopupUI<T>(popupType);
+        base.Awake();
+
+        popupManager = GetComponentInChildren<PopupManager>();
+        stateManager = GetComponentInChildren<StateManager>();
     }
 
-    public void ClosePopup(UIPopup popup)
+    public void ShowPopup(PopupType popupType)
     {
-        PopupManager.Instance.ClosePopupUI(popup);
+        popupManager.ShowPopupUI(popupType);
+    }
+
+    public void ClosePopup(PopupType popup)
+    {
+        popupManager.ClosePopupUI(popup);
     }
 }
