@@ -16,8 +16,9 @@ public class PopupManager : Singleton<PopupManager>
     public List<PopupEntry> popupEntries;
     private Dictionary<PopupType, UIPopup> popupDict;
 
-    private void Awake()
+    protected override void Awake()
     {
+
         popupDict = new Dictionary<PopupType, UIPopup>();
         foreach (var entry in popupEntries)
         {

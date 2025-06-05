@@ -2,48 +2,61 @@ using UnityEngine;
 
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
-    private static object _lock = new object();
-    private static bool _applicationIsQuitting = false;
+    private static T instance;
+    private static object lockObject = new object();
+    private static bool applicationIsQuitting = false;
 
     public static T Instance
     {
         get
         {
-            if (_applicationIsQuitting)
+            if (applicationIsQuitting)
             {
                 Debug.LogWarning("[Singleton] 이미 종료된 애플리케이션에서 " + typeof(T) + " 인스턴스를 요청했습니다.");
                 return null;
             }
 
-            lock (_lock)
+            lock (lockObject)
             {
-                if (_instance == null)
+                if (instance == null)
                 {
-                    _instance = Object.FindFirstObjectByType<T>();
+                    instance = Object.FindFirstObjectByType<T>();
 
                     if (Object.FindObjectsByType<T>(FindObjectsSortMode.None).Length > 1)
-                    {
-                        return _instance;
-                    }
+                        return instance;
 
-                    if (_instance == null)
+                    if (instance == null)
                     {
                         GameObject singleton = new GameObject();
-                        _instance = singleton.AddComponent<T>();
-                        singleton.name = "(singleton) " + typeof(T).ToString();
-
+                        instance = singleton.AddComponent<T>();
+                        singleton.name = typeof(T).ToString();
                         DontDestroyOnLoad(singleton);
                     }
                 }
 
-                return _instance;
+                return instance;
+            }
+        }
+    }
+
+    protected virtual void Awake()
+    {
+        lock (lockObject)
+        {
+            if (instance == null)
+            {
+                instance = this as T;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (instance != this)
+            {
+                Destroy(gameObject);
             }
         }
     }
 
     protected virtual void OnDestroy()
     {
-        _applicationIsQuitting = true;
+        applicationIsQuitting = true;
     }
 }
