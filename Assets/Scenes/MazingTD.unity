@@ -3708,6 +3708,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3249426959700306550, guid: 5431e1565bc332d48a850b107040c2c5, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249426959700306550, guid: 5431e1565bc332d48a850b107040c2c5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5485eace06d634e47b1c5230d3853560, type: 2}
+    - target: {fileID: 3249426959700306550, guid: 5431e1565bc332d48a850b107040c2c5, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5485eace06d634e47b1c5230d3853560, type: 2}
     - target: {fileID: 5839030073054199941, guid: 5431e1565bc332d48a850b107040c2c5, type: 3}
       propertyPath: m_Name
       value: TowerSpot (2)
