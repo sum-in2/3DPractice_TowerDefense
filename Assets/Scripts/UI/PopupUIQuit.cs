@@ -8,7 +8,7 @@ public class PopupQuitButton : MonoBehaviour
         Button button = GetComponent<Button>();
 
         if (button == null)
-            button = GetComponentInParent<Button>();
+            button = GetComponentInChildren<Button>();
 
         if (button != null)
             button.onClick.AddListener(HidePopup);
