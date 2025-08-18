@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class ClickManager : Singleton<ClickManager>
@@ -13,11 +14,19 @@ public class ClickManager : Singleton<ClickManager>
         mainCamera = GetComponent<Camera>();
     }
 
-    public void OnLClick(InputAction.CallbackContext context)
+    void Update()
     {
-        if (!context.started)
-            return;
+        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+                return;
 
+            HandleClick();
+        }
+    }
+
+    private void HandleClick()
+    {
         Vector2 mousePos = Mouse.current?.position.ReadValue() ?? Vector2.zero;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
@@ -31,7 +40,6 @@ public class ClickManager : Singleton<ClickManager>
             }
         }
     }
-
 
     /// <summary>
     /// 모든 IClickable 오브젝트의 선택을 해제합니다

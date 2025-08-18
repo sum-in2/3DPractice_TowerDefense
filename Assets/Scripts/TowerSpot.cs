@@ -1,16 +1,23 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TowerSpot : MonoBehaviour, IClickable
 {
     private Renderer rend;
+    private BoxCollider col;
     private Material matInstance;
 
     public Color defaultColor = Color.green;
     public Color selectedColor = Color.yellow;
 
+    [Header("타워 상태")]
+    public bool isOccupied = false; // 타워 설치 여부
+    public int gridX, gridY;        // 그리드 인덱스(옵션)
+
     void Awake()
     {
         rend = GetComponent<Renderer>();
+        col = GetComponent<BoxCollider>();
 
         matInstance = rend.material;
         matInstance.color = defaultColor;
@@ -20,15 +27,36 @@ public class TowerSpot : MonoBehaviour, IClickable
     {
         // TODO : UIManager에 타워 리스트 구현
 
-        // 클릭 했을때, UIState를 할당 받은 패널을 온오프 해야함.
-        // 근데 여기 스팟이 타워인지 타워스팟인지에 따라서 다르게 띄워야 할거같긴한데?
-        // 하지만 타워를 설치하면 여기 스크립트는 없을꺼니까 아마
-        // 여기엔 towerlist 호출하면 될듯?
+        // UIManager에 타워 리스트 창 띄우기
+        // 타워 설치 가능하고(isOccupied==false) 선택한 경우엔만 타워 설치 UI 실행
+
         matInstance.color = selectedColor;
     }
 
     public void OnDeselect()
     {
         matInstance.color = defaultColor;
+    }
+
+    public bool CanPlaceTower()
+    {
+        return !isOccupied;
+    }
+
+    public void SetIndex(int x, int y)
+    {
+        gridX = x;
+        gridY = y;
+    }
+
+    public void PlaceTower(GameObject towerPrefab)
+    {
+        if (CanPlaceTower())
+        {
+            Instantiate(towerPrefab, transform.position, Quaternion.identity);
+            isOccupied = true;
+            col.enabled = false;
+            rend.enabled = false;
+        }
     }
 }

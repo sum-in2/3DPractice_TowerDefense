@@ -6,24 +6,6 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
-                    "name": "LClick",
-                    "type": "Button",
-                    "id": "b803380c-ffe7-4bdd-9dfe-4aa69731b561",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Press",
-                    "type": "Button",
-                    "id": "00c4a487-4cc5-41fa-9f1a-33ccdafd9898",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Drag",
                     "type": "Value",
                     "id": "63472c66-b9fa-436a-87e2-4b310cc43060",
@@ -43,28 +25,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "cdc671f7-a2df-4f2b-aa11-e0cca30e75f0",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fa41f3bb-3f17-4afb-bfce-a55bb212b2ed",
-                    "path": "<Pointer>/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Press",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "ae2ac3d0-90e6-4126-84f6-4b8ae26a0fc7",

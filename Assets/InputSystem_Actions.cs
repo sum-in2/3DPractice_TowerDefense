@@ -92,24 +92,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
             ""actions"": [
                 {
-                    ""name"": ""LClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""b803380c-ffe7-4bdd-9dfe-4aa69731b561"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Press"",
-                    ""type"": ""Button"",
-                    ""id"": ""00c4a487-4cc5-41fa-9f1a-33ccdafd9898"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Drag"",
                     ""type"": ""Value"",
                     ""id"": ""63472c66-b9fa-436a-87e2-4b310cc43060"",
@@ -129,28 +111,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""cdc671f7-a2df-4f2b-aa11-e0cca30e75f0"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fa41f3bb-3f17-4afb-bfce-a55bb212b2ed"",
-                    ""path"": ""<Pointer>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Press"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""ae2ac3d0-90e6-4126-84f6-4b8ae26a0fc7"",
@@ -757,8 +717,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_LClick = m_Player.FindAction("LClick", throwIfNotFound: true);
-        m_Player_Press = m_Player.FindAction("Press", throwIfNotFound: true);
         m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         // UI
@@ -854,8 +812,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    private readonly InputAction m_Player_LClick;
-    private readonly InputAction m_Player_Press;
     private readonly InputAction m_Player_Drag;
     private readonly InputAction m_Player_Scroll;
     /// <summary>
@@ -869,14 +825,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
         public PlayerActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Player/LClick".
-        /// </summary>
-        public InputAction @LClick => m_Wrapper.m_Player_LClick;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Press".
-        /// </summary>
-        public InputAction @Press => m_Wrapper.m_Player_Press;
         /// <summary>
         /// Provides access to the underlying input action "Player/Drag".
         /// </summary>
@@ -911,12 +859,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-            @LClick.started += instance.OnLClick;
-            @LClick.performed += instance.OnLClick;
-            @LClick.canceled += instance.OnLClick;
-            @Press.started += instance.OnPress;
-            @Press.performed += instance.OnPress;
-            @Press.canceled += instance.OnPress;
             @Drag.started += instance.OnDrag;
             @Drag.performed += instance.OnDrag;
             @Drag.canceled += instance.OnDrag;
@@ -934,12 +876,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="PlayerActions" />
         private void UnregisterCallbacks(IPlayerActions instance)
         {
-            @LClick.started -= instance.OnLClick;
-            @LClick.performed -= instance.OnLClick;
-            @LClick.canceled -= instance.OnLClick;
-            @Press.started -= instance.OnPress;
-            @Press.performed -= instance.OnPress;
-            @Press.canceled -= instance.OnPress;
             @Drag.started -= instance.OnDrag;
             @Drag.performed -= instance.OnDrag;
             @Drag.canceled -= instance.OnDrag;
@@ -1246,20 +1182,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// <seealso cref="PlayerActions.RemoveCallbacks(IPlayerActions)" />
     public interface IPlayerActions
     {
-        /// <summary>
-        /// Method invoked when associated input action "LClick" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLClick(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Press" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPress(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Drag" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
