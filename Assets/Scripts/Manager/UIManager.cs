@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using Unity.VisualScripting;
+using System.Data;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -25,5 +26,10 @@ public class UIManager : Singleton<UIManager>
     public void ClosePopup(PopupType popup)
     {
         popupManager.ClosePopupUI(popup);
+    }
+
+    public void ChangeState(StateType state)
+    {
+        stateManager.SetState(state);
     }
 }

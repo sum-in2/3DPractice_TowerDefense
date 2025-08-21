@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class ClickManager : Singleton<ClickManager>
 {
     private Camera mainCamera;
+    private IClickable nowClickObject;
 
     protected override void Awake()
     {
@@ -30,14 +31,22 @@ public class ClickManager : Singleton<ClickManager>
         Vector2 mousePos = Mouse.current?.position.ReadValue() ?? Vector2.zero;
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
+        nowClickObject = null;
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            IClickable clickable = hit.collider.GetComponent<IClickable>();
-            if (clickable != null)
+            nowClickObject = hit.collider.GetComponent<IClickable>();
+
+            // TODO: 클릭된 오브젝트에 따라서 상태 UI 변경
+
+            if (nowClickObject != null)
             {
-                clickable.OnSelect();
-                DeselectAllExcept(clickable);
+                nowClickObject.OnSelect();
+                UIManager.Instance.ChangeState(nowClickObject.CurrentState);
             }
+            else
+                UIManager.Instance.ChangeState(StateType.None);
+            DeselectAllExcept(nowClickObject);
         }
     }
 

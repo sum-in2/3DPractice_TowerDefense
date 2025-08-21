@@ -10,6 +10,8 @@ public class TowerSpot : MonoBehaviour, IClickable
     public Color defaultColor = Color.green;
     public Color selectedColor = Color.yellow;
 
+    public StateType CurrentState { get; private set; } = StateType.Tower;
+
     [Header("타워 상태")]
     public bool isOccupied = false; // 타워 설치 여부
     public int gridX, gridY;        // 그리드 인덱스(옵션)

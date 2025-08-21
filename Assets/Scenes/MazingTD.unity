@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 278816590}
   - component: {fileID: 278816589}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Col2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,14 +462,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: 0, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1982603496}
   m_Father: {fileID: 1773431750}
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 425620787}
   - component: {fileID: 425620786}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Col1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 519835554}
   - component: {fileID: 519835553}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Col1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1655,7 +1655,7 @@ GameObject:
   - component: {fileID: 829429801}
   - component: {fileID: 829429800}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Col3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3447,7 +3447,7 @@ GameObject:
   - component: {fileID: 1760690980}
   - component: {fileID: 1760690979}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Col2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3634,6 +3634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15130a8370c8e0f47b3a777f95340762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerPanel: {fileID: 1120499845}
+  rightPanel: {fileID: 1180751314}
 --- !u!1 &1823145054
 GameObject:
   m_ObjectHideFlags: 0
@@ -3898,7 +3900,7 @@ GameObject:
   - component: {fileID: 1913465580}
   - component: {fileID: 1913465579}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Col3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4118,38 +4120,6 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1955975774}
-        m_TargetAssemblyTypeName: ClickManager, Assembly-CSharp
-        m_MethodName: OnLClick
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b803380c-ffe7-4bdd-9dfe-4aa69731b561
-    m_ActionName: 'Player/LClick[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1982603495}
-        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
-        m_MethodName: OnPress
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 00c4a487-4cc5-41fa-9f1a-33ccdafd9898
-    m_ActionName: 'Player/Press[/Mouse/press]'
-  - m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 1982603495}
         m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
         m_MethodName: OnDrag
@@ -4180,6 +4150,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8eb29ab4-cbfc-4f5d-8488-32d7b2e17033
     m_ActionName: 'Player/Scroll[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1982603495}
+        m_TargetAssemblyTypeName: CameraController, Assembly-CSharp
+        m_MethodName: OnPress
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ffda310f-4840-4a1f-ae40-6fb563a9b884
+    m_ActionName: 'Player/Press[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4214,7 +4200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd4a92d98f34ad4d85071c95dcdc466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragSpeed: 3
+  dragSpeed: 2
   zoomSpeed: 5
   zoomSmoothTime: 0.15
   minZoom: 40
