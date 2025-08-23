@@ -1,3 +1,9 @@
+public enum UpgradeType
+{
+    DamageUp,
+    RangeUp,
+}
+
 public enum TowerType
 {
     Base,
