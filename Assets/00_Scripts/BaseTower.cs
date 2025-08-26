@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class BaseTower : MonoBehaviour
+public abstract class BaseTower : MonoBehaviour, IClickable
 {
     public float attackPower;
     public float range;
@@ -10,6 +10,7 @@ public abstract class BaseTower : MonoBehaviour
     public float criticalChance;
     public float criticalDamage;
     public TowerType towerType;
+    public StateType CurrentState { get; private set; } = StateType.Upgrade;
 
     private IAttackBehavior attackBehavior;
 
@@ -22,5 +23,13 @@ public abstract class BaseTower : MonoBehaviour
     {
         if (attackBehavior != null)
             attackBehavior.Attack(this);
+    }
+
+    public void OnSelect()
+    {
+    }
+
+    public void OnDeselect()
+    {
     }
 }

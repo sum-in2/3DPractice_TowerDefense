@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05166e37edcf3af4d9e1f95dce2b873e, type: 3}
-  m_Name: BaseTech
+  m_Script: {fileID: 11500000, guid: d43376965b400704889edb5b05c98206, type: 3}
+  m_Name: BasicTower_RangeUpgrade
   m_EditorClassIdentifier: 
-  techType: 0
-  level: 1
-  description: 
+  towerType: 0
+  upgradeType: 1
+  increaseAmount: 0.3
+  level: 0

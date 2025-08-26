@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TowerSpot : MonoBehaviour, IClickable
 {
+    private Transform parent;
     private Renderer rend;
     private BoxCollider col;
     private Material matInstance;
@@ -27,11 +28,6 @@ public class TowerSpot : MonoBehaviour, IClickable
 
     public void OnSelect()
     {
-        // TODO : UIManager에 타워 리스트 구현
-
-        // UIManager에 타워 리스트 창 띄우기
-        // 타워 설치 가능하고(isOccupied==false) 선택한 경우엔만 타워 설치 UI 실행
-
         matInstance.color = selectedColor;
     }
 
@@ -51,11 +47,16 @@ public class TowerSpot : MonoBehaviour, IClickable
         gridY = y;
     }
 
+    public void SetParent(Transform parent)
+    {
+        this.parent = parent;
+    }
+
     public void PlaceTower(GameObject towerPrefab)
     {
         if (CanPlaceTower())
         {
-            Instantiate(towerPrefab, transform.position, Quaternion.identity);
+            Instantiate(towerPrefab, transform.position, Quaternion.identity, parent);
             isOccupied = true;
             col.enabled = false;
             rend.enabled = false;

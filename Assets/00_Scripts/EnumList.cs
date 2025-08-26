@@ -6,7 +6,7 @@ public enum UpgradeType
 
 public enum TowerType
 {
-    Base,
+    Basic,
     A,
     B,
     C,

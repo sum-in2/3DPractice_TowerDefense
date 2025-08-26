@@ -69,4 +69,13 @@ public class ClickManager : Singleton<ClickManager>
             }
         }
     }
+
+    public void PlaceTower(GameObject towerPrefab)
+    {
+        TowerSpot myTowerSpot = nowClickObject as TowerSpot;
+        if (myTowerSpot)
+        {
+            myTowerSpot.PlaceTower(towerPrefab);
+        }
+    }
 }

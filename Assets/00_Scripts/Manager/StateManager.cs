@@ -1,19 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.UI;
 
-/// <summary>
-/// 인게임 중앙 하단 상태 UI를 관리합니다.
-/// </summary>
 public class StateManager : MonoBehaviour
 {
-    public GameObject centerPanel;
-    public GameObject rightPanel;
+    public List<GameObject> towerButtons;
+    public List<GameObject> upgradeButtons;
 
     public delegate void StateChangedHandler(StateType newState);
     public event StateChangedHandler OnStateChanged;
 
     private StateType currentState = StateType.None;
-
     public StateType CurrentState
     {
         get => currentState;
@@ -39,17 +36,32 @@ public class StateManager : MonoBehaviour
 
     private void HandleStateChanged(StateType newState)
     {
-        Debug.Log("상태 변경됨: " + newState);
         switch (newState)
         {
-            case StateType.None:
-                centerPanel.SetActive(false);
-                rightPanel.SetActive(false);
+            case StateType.Tower:
+                ToggleButtons(towerButtons, true);
+                ToggleButtons(upgradeButtons, false);
                 break;
+
+            case StateType.Upgrade:
+                ToggleButtons(towerButtons, false);
+                ToggleButtons(upgradeButtons, true);
+                break;
+
             default:
-                centerPanel.SetActive(true);
-                rightPanel.SetActive(true);
+                ToggleButtons(towerButtons, false);
+                ToggleButtons(upgradeButtons, false);
                 break;
+        }
+    }
+
+    private void ToggleButtons(List<GameObject> buttons, bool isActive)
+    {
+        if (buttons == null) return;
+        foreach (var button in buttons)
+        {
+            if (button != null)
+                button.SetActive(isActive);
         }
     }
 }

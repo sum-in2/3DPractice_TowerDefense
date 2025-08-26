@@ -28,6 +28,7 @@ public class GridManager : Singleton<GridManager>
                 Vector3 pos = new Vector3(posX, 0, posZ);
                 TowerSpot spot = Instantiate(towerSpotPrefab, pos, Quaternion.identity, parentTransform);
                 spot.SetIndex(x, y);
+                spot.SetParent(parentTransform);
                 spots[x, y] = spot;
             }
         }
