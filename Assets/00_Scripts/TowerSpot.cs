@@ -52,14 +52,16 @@ public class TowerSpot : MonoBehaviour, IClickable
         this.parent = parent;
     }
 
-    public void PlaceTower(GameObject towerPrefab)
+    public GameObject PlaceTower(GameObject towerPrefab)
     {
         if (CanPlaceTower())
         {
-            Instantiate(towerPrefab, transform.position, Quaternion.identity, parent);
             isOccupied = true;
             col.enabled = false;
             rend.enabled = false;
+            return Instantiate(towerPrefab, transform.position, Quaternion.identity, parent);
         }
+
+        return null;
     }
 }

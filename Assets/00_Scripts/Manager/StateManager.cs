@@ -6,6 +6,8 @@ public class StateManager : MonoBehaviour
 {
     public List<GameObject> towerButtons;
     public List<GameObject> upgradeButtons;
+    public GameObject centerPanel;
+    public GameObject rightPanel;
 
     public delegate void StateChangedHandler(StateType newState);
     public event StateChangedHandler OnStateChanged;
@@ -49,15 +51,18 @@ public class StateManager : MonoBehaviour
                 break;
 
             default:
-                ToggleButtons(towerButtons, false);
-                ToggleButtons(upgradeButtons, false);
+                centerPanel.SetActive(false);
+                rightPanel.SetActive(false);
                 break;
         }
     }
 
     private void ToggleButtons(List<GameObject> buttons, bool isActive)
     {
+        if (!centerPanel.activeSelf) centerPanel.SetActive(true);
+        if (!rightPanel.activeSelf) rightPanel.SetActive(true);
         if (buttons == null) return;
+
         foreach (var button in buttons)
         {
             if (button != null)

@@ -7,7 +7,22 @@ using UnityEngine.SceneManagement;
 public class ClickManager : Singleton<ClickManager>
 {
     private Camera mainCamera;
-    private IClickable nowClickObject;
+    private IClickable _nowClickObject;
+    public IClickable nowClickObject
+    {
+        get => _nowClickObject;
+        private set
+        {
+            if (_nowClickObject != value)
+            {
+                _nowClickObject = value;
+                if (_nowClickObject != null)
+                    UIManager.Instance.ChangeState(_nowClickObject.CurrentState);
+                else
+                    UIManager.Instance.ChangeState(StateType.None);
+            }
+        }
+    }
 
     protected override void Awake()
     {
@@ -36,18 +51,12 @@ public class ClickManager : Singleton<ClickManager>
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             nowClickObject = hit.collider.GetComponent<IClickable>();
-
-            // TODO: 클릭된 오브젝트에 따라서 상태 UI 변경
-
-            if (nowClickObject != null)
-            {
-                nowClickObject.OnSelect();
-                UIManager.Instance.ChangeState(nowClickObject.CurrentState);
-            }
-            else
-                UIManager.Instance.ChangeState(StateType.None);
-            DeselectAllExcept(nowClickObject);
         }
+
+        if (nowClickObject != null)
+            nowClickObject.OnSelect();
+
+        DeselectAllExcept(nowClickObject);
     }
 
     /// <summary>
@@ -75,7 +84,7 @@ public class ClickManager : Singleton<ClickManager>
         TowerSpot myTowerSpot = nowClickObject as TowerSpot;
         if (myTowerSpot)
         {
-            myTowerSpot.PlaceTower(towerPrefab);
+            nowClickObject = myTowerSpot.PlaceTower(towerPrefab).GetComponent<IClickable>();
         }
     }
 }
