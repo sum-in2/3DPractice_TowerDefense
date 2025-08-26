@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class SOManager : Singleton<SOManager>
 {
-    // 만약에 SO가 늘면 늘수록 부담이 커질 것 같음
-    // SO당 핸들러로 분할 후 매니저에선 핸들러를 종합해서 사용하는게 나을듯
-    // TODO : 해금 상태에 따라 UI 잠금 상태 설정
     [SerializeField] List<Tech> towerTech;
     [SerializeField] List<Upgrade> towerUpgrade;
+
     private Dictionary<TowerType, Tech> towerDict;
     private Dictionary<TowerType, List<Upgrade>> upgradeDict;
+    private Dictionary<TowerType, bool> lockStates;
 
     protected override void Awake()
     {
         base.Awake();
+
         upgradeDict = new Dictionary<TowerType, List<Upgrade>>();
         towerDict = towerTech.ToDictionary(t => t.techType);
+        lockStates = new Dictionary<TowerType, bool>();
 
         foreach (Upgrade upgrade in towerUpgrade)
         {
@@ -24,6 +25,25 @@ public class SOManager : Singleton<SOManager>
                 upgradeDict[upgrade.towerType] = new List<Upgrade>();
             upgradeDict[upgrade.towerType].Add(upgrade);
         }
+
+        foreach (var pair in towerDict)
+        {
+            lockStates[pair.Key] = (pair.Value.level == 0);
+        }
+    }
+
+    public bool IsLocked(TowerType type)
+    {
+        return lockStates.ContainsKey(type) && lockStates[type];
+    }
+
+    public void SetTowerLevel(TowerType type, int level)
+    {
+        if (!towerDict.ContainsKey(type))
+            return;
+
+        towerDict[type].level = level;
+        lockStates[type] = (level == 0);
     }
 
     private int GetTowerLevel(TowerType type)

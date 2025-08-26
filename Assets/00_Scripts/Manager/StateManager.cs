@@ -43,11 +43,13 @@ public class StateManager : MonoBehaviour
             case StateType.Tower:
                 ToggleButtons(towerButtons, true);
                 ToggleButtons(upgradeButtons, false);
+                UpdateButtonLockState(towerButtons);
                 break;
 
             case StateType.Upgrade:
                 ToggleButtons(towerButtons, false);
                 ToggleButtons(upgradeButtons, true);
+                UpdateButtonLockState(upgradeButtons);
                 break;
 
             default:
@@ -67,6 +69,34 @@ public class StateManager : MonoBehaviour
         {
             if (button != null)
                 button.SetActive(isActive);
+        }
+    }
+
+    // 새로 추가한 버튼 잠금 상태 갱신 메서드
+    public void UpdateButtonLockState(List<GameObject> buttons)
+    {
+        if (buttons == null) return;
+
+        foreach (GameObject button in buttons)
+        {
+            if (button == null) continue;
+
+            Button btnComponent = button.GetComponent<Button>();
+            Image btnImage = button.GetComponent<Image>();
+            GameObject lockIcon = button.transform.Find("LockIcon")?.gameObject;
+
+            if (btnComponent == null || btnImage == null) continue;
+
+            if (System.Enum.TryParse(button.name, out TowerType towerType))
+            {
+                bool isLocked = SOManager.Instance.IsLocked(towerType);
+
+                btnComponent.interactable = !isLocked;
+                btnImage.color = isLocked ? new Color(0.5f, 0.5f, 0.5f, 1f) : Color.white;
+
+                if (lockIcon != null)
+                    lockIcon.SetActive(isLocked);
+            }
         }
     }
 }

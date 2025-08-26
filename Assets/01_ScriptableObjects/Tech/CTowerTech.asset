@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CTowerTech
   m_EditorClassIdentifier: 
   techType: 3
-  level: 0
+  level: 1
   description: 
