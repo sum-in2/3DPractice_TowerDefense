@@ -7,6 +7,12 @@ public enum UpgradeType
 public enum TowerType
 {
     Base,
+    A,
+    B,
+    C,
+    D,
+    E,
+
 }
 
 public enum PopupType

@@ -975,8 +975,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerSpotPrefab: {fileID: 3937582750074193438, guid: 5431e1565bc332d48a850b107040c2c5, type: 3}
   parentTransform: {fileID: 1228652575}
-  width: 20
-  height: 20
+  width: 10
+  height: 10
   cellSpacing: 1.2
 --- !u!4 &427606498
 Transform:

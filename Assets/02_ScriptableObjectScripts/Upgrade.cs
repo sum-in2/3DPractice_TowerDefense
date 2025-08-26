@@ -7,7 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Upgrade")]
 public class Upgrade : ScriptableObject
 {
+    public TowerType towerType;
     public UpgradeType upgradeType;
     public float increaseAmount;
-    public string description;
+    public int level;
 }
