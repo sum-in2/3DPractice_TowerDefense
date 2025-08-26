@@ -16,6 +16,14 @@ public class UIManager : Singleton<UIManager>
 
         popupManager = GetComponentInChildren<PopupManager>();
         stateManager = GetComponentInChildren<StateManager>();
+        UIEvents.OnStateChangeRequested += ChangeState;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        UIEvents.OnStateChangeRequested -= ChangeState;
     }
 
     public void ShowPopup(PopupType popupType)

@@ -17,9 +17,9 @@ public class ClickManager : Singleton<ClickManager>
             {
                 _nowClickObject = value;
                 if (_nowClickObject != null)
-                    UIManager.Instance.ChangeState(_nowClickObject.CurrentState);
+                    UIEvents.OnStateChangeRequested?.Invoke(_nowClickObject.CurrentState);
                 else
-                    UIManager.Instance.ChangeState(StateType.None);
+                    UIEvents.OnStateChangeRequested?.Invoke(StateType.None);
             }
         }
     }
@@ -27,31 +27,27 @@ public class ClickManager : Singleton<ClickManager>
     protected override void Awake()
     {
         base.Awake();
-        mainCamera = GetComponent<Camera>();
+        mainCamera = Camera.main;
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            HandleClick();
-        }
+        InputManager.OnPointerClick += HandleClick;
     }
 
-    private void HandleClick()
+    private void OnDisable()
     {
-        Vector2 mousePos = Mouse.current?.position.ReadValue() ?? Vector2.zero;
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        InputManager.OnPointerClick -= HandleClick;
+    }
+
+    private void HandleClick(Vector2 mousePos)
+    {
+        Ray ray = mainCamera.ScreenPointToRay(mousePos);
 
         nowClickObject = null;
 
         if (Physics.Raycast(ray, out RaycastHit hit))
-        {
             nowClickObject = hit.collider.GetComponent<IClickable>();
-        }
 
         if (nowClickObject != null)
             nowClickObject.OnSelect();
@@ -83,8 +79,6 @@ public class ClickManager : Singleton<ClickManager>
     {
         TowerSpot myTowerSpot = nowClickObject as TowerSpot;
         if (myTowerSpot)
-        {
             nowClickObject = myTowerSpot.PlaceTower(towerPrefab).GetComponent<IClickable>();
-        }
     }
 }

@@ -6,6 +6,7 @@ public class SOManager : Singleton<SOManager>
 {
     // 만약에 SO가 늘면 늘수록 부담이 커질 것 같음
     // SO당 핸들러로 분할 후 매니저에선 핸들러를 종합해서 사용하는게 나을듯
+    // TODO : 해금 상태에 따라 UI 잠금 상태 설정
     [SerializeField] List<Tech> towerTech;
     [SerializeField] List<Upgrade> towerUpgrade;
     private Dictionary<TowerType, Tech> towerDict;
