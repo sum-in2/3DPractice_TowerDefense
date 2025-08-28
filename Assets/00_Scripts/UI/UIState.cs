@@ -19,6 +19,4 @@ public class UIState : UIBase
             Debug.Log("변환 실패");
         }
     }
-
-    //TODO: TowerSpot > BaseTower > 업그레이드 갈래 순차적으로 열리는 방안 
 }

@@ -1,29 +1,55 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
 
 public abstract class BaseTower : MonoBehaviour, IClickable
 {
-    public float attackPower;
-    public float range;
-    public float attackSpeed;
-    public float ignoreDefense;
-    public float criticalChance;
-    public float criticalDamage;
+    public AttackStats attackStats;
     public TowerType towerType;
     public StateType CurrentState { get; private set; } = StateType.Upgrade;
 
-    private IAttackBehavior attackBehavior;
+    protected IAttackBehavior attackBehavior;
 
-    public void SetAttackBehavior(IAttackBehavior behavior)
+    private Coroutine attackCoroutine;
+    public Projectile projectilePrefab;
+
+    protected virtual void Start()
     {
-        attackBehavior = behavior;
+        attackBehavior = TowerAttackBehaviorFactory.Create(towerType);
+        StartAttackRoutine();
     }
 
-    public virtual void Attack()
+    protected void StartAttackRoutine()
     {
-        if (attackBehavior != null)
-            attackBehavior.Attack(this);
+        if (attackCoroutine == null)
+            attackCoroutine = StartCoroutine(AttackRoutine());
     }
+
+    protected void StopAttackRoutine()
+    {
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
+    }
+
+    protected virtual IEnumerator AttackRoutine()
+    {
+        while (true)
+        {
+            if (HasTarget())
+            {
+                attackBehavior?.Attack(this);
+                yield return new WaitForSeconds(1f / attackStats.attackSpeed);
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+    }
+
+    protected abstract bool HasTarget();
 
     public void OnSelect()
     {
@@ -31,5 +57,10 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     public void OnDeselect()
     {
+    }
+
+    protected virtual void OnDisable()
+    {
+        StopAttackRoutine();
     }
 }

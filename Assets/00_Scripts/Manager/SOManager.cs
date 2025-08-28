@@ -7,7 +7,7 @@ public class SOManager : Singleton<SOManager>
     [SerializeField] List<Tech> towerTech;
     [SerializeField] List<Upgrade> towerUpgrade;
 
-    private Dictionary<TowerType, Tech> towerDict;
+    private Dictionary<TowerType, Tech> towerDict; // Tech가 단순 해금이 아닌 추후에 타워 업그레이드 트리가 생길 수도? 있으? 니까
     private Dictionary<TowerType, List<Upgrade>> upgradeDict;
     private Dictionary<TowerType, bool> lockStates;
 
@@ -39,11 +39,17 @@ public class SOManager : Singleton<SOManager>
 
     public void SetTowerLevel(TowerType type, int level)
     {
-        if (!towerDict.ContainsKey(type))
-            return;
+        if (!towerDict.ContainsKey(type)) return;
 
         towerDict[type].level = level;
         lockStates[type] = (level == 0);
+    }
+    public void TowerLevelAdder(TowerType type)
+    {
+        if (!towerDict.ContainsKey(type)) return;
+
+        towerDict[type].level += 1;
+        if (!lockStates[type]) lockStates[type] = true;
     }
 
     private int GetTowerLevel(TowerType type)
