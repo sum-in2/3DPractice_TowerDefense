@@ -1,3 +1,4 @@
+[System.Serializable]
 public struct AttackStats
 {
     public float attackPower;

@@ -7,6 +7,7 @@ public class TowerSpot : MonoBehaviour, IClickable
     private Renderer rend;
     private BoxCollider col;
     private Material matInstance;
+    private VertexLineDrawer vertexLineDrawer;
 
     public Color defaultColor = Color.green;
     public Color selectedColor = Color.yellow;
@@ -21,6 +22,7 @@ public class TowerSpot : MonoBehaviour, IClickable
     {
         rend = GetComponent<Renderer>();
         col = GetComponent<BoxCollider>();
+        vertexLineDrawer = GetComponent<VertexLineDrawer>();
 
         matInstance = rend.material;
         matInstance.color = defaultColor;
@@ -59,6 +61,7 @@ public class TowerSpot : MonoBehaviour, IClickable
             isOccupied = true;
             col.enabled = false;
             rend.enabled = false;
+            vertexLineDrawer.enabled = false;
             return Instantiate(towerPrefab, transform.position, Quaternion.identity, parent);
         }
 
