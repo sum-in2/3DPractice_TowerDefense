@@ -4,11 +4,15 @@ using System.Collections.Generic;
 public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
     private Dictionary<Component, object> pools = new Dictionary<Component, object>();
+    [SerializeField] private GameObject projectiles;
 
     public void CreatePool<T>(T prefab, int initialSize, Transform parent = null) where T : Component
     {
         if (pools.ContainsKey(prefab))
             return;
+
+        if (prefab is Projectile)
+            parent = projectiles.transform;
 
         ObjectPool<T> newPool = new ObjectPool<T>(prefab, initialSize, parent);
         pools.Add(prefab, newPool);

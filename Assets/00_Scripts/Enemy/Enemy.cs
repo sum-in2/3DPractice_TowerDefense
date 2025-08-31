@@ -14,6 +14,6 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
-        // 풀 반환
+        ObjectPoolManager.Instance.ReturnObject(this);
     }
 }
