@@ -5,7 +5,9 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 {
     public AttackStats attackStats;
     public TowerType towerType;
-    public StateType CurrentState { get; private set; } = StateType.Upgrade;
+    public StateType currentState { get; private set; } = StateType.Upgrade;
+
+    public GameObject currentTarget { get; private set; }
 
     protected IAttackBehavior attackBehavior;
 
@@ -14,6 +16,7 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     protected virtual void Start()
     {
+        TowerManager.Instance.RegisterTower(this);
         attackBehavior = TowerAttackBehaviorFactory.Create(towerType);
         StartAttackRoutine();
     }
@@ -49,7 +52,22 @@ public abstract class BaseTower : MonoBehaviour, IClickable
         }
     }
 
-    protected abstract bool HasTarget();
+    private GameObject FindTargetInRange()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, attackStats.range);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+                return hit.gameObject;
+        }
+        return null;
+    }
+
+    private bool HasTarget()
+    {
+        currentTarget = FindTargetInRange();
+        return currentTarget != null;
+    }
 
     public void OnSelect()
     {

@@ -8,6 +8,7 @@ public class ClickManager : Singleton<ClickManager>
 {
     private Camera mainCamera;
     private IClickable _nowClickObject;
+
     public IClickable nowClickObject
     {
         get => _nowClickObject;
@@ -17,7 +18,7 @@ public class ClickManager : Singleton<ClickManager>
             {
                 _nowClickObject = value;
                 if (_nowClickObject != null)
-                    UIEvents.OnStateChangeRequested?.Invoke(_nowClickObject.CurrentState);
+                    UIEvents.OnStateChangeRequested?.Invoke(_nowClickObject.currentState);
                 else
                     UIEvents.OnStateChangeRequested?.Invoke(StateType.None);
             }

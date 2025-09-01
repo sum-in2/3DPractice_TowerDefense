@@ -12,10 +12,7 @@ public class BasicTowerAttack : IAttackBehavior
         Projectile proj = ObjectPoolManager.Instance.GetObject(basicTower.projectilePrefab);
         proj.transform.position = basicTower.firePoint.position;
         proj.SetTarget(basicTower.currentTarget);
-        proj.SetDamage(
-            basicTower.attackStats.attackPower,
-            basicTower.attackStats.criticalChance,
-            basicTower.attackStats.criticalDamage);
+        proj.SetDamage(basicTower.attackStats);
         proj.gameObject.SetActive(true);
     }
 }

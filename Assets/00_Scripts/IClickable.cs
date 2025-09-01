@@ -2,7 +2,7 @@ using System;
 
 public interface IClickable
 {
-    StateType CurrentState { get; }
+    StateType currentState { get; }
     void OnSelect();
     void OnDeselect();
 }

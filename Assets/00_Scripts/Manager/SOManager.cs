@@ -8,27 +8,39 @@ public class SOManager : Singleton<SOManager>
     [SerializeField] List<Upgrade> towerUpgrade;
 
     private Dictionary<TowerType, Tech> towerDict; // Tech가 단순 해금이 아닌 추후에 타워 업그레이드 트리가 생길 수도? 있으? 니까
-    private Dictionary<TowerType, List<Upgrade>> upgradeDict;
+    private Dictionary<TowerType, List<Upgrade>> upgradeSODict;
     private Dictionary<TowerType, bool> lockStates;
 
     protected override void Awake()
     {
         base.Awake();
 
-        upgradeDict = new Dictionary<TowerType, List<Upgrade>>();
+        upgradeSODict = new Dictionary<TowerType, List<Upgrade>>();
         towerDict = towerTech.ToDictionary(t => t.techType);
         lockStates = new Dictionary<TowerType, bool>();
 
         foreach (Upgrade upgrade in towerUpgrade)
         {
-            if (!upgradeDict.ContainsKey(upgrade.towerType))
-                upgradeDict[upgrade.towerType] = new List<Upgrade>();
-            upgradeDict[upgrade.towerType].Add(upgrade);
+            if (!upgradeSODict.ContainsKey(upgrade.towerType))
+                upgradeSODict[upgrade.towerType] = new List<Upgrade>();
+            upgradeSODict[upgrade.towerType].Add(upgrade);
         }
 
         foreach (var pair in towerDict)
         {
             lockStates[pair.Key] = (pair.Value.level == 0);
+        }
+
+        UpgradeSOLevelInit();
+    }
+
+    private void UpgradeSOLevelInit()
+    {
+        // TODO: 후에 세이브/로드 시에 SO 데이터 로드해서 적용
+
+        foreach (Upgrade upgrade in towerUpgrade)
+        {
+            upgrade.level = 0;
         }
     }
 
@@ -57,5 +69,10 @@ public class SOManager : Singleton<SOManager>
         if (towerDict.ContainsKey(type))
             return towerDict[type].level;
         return -1;
+    }
+
+    public List<Upgrade> GetTowerUpgradeSOList(TowerType towerType)
+    {
+        return upgradeSODict[towerType];
     }
 }

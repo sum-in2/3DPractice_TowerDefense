@@ -1,5 +1,5 @@
 [System.Serializable]
-public struct AttackStats
+public class AttackStats
 {
     public float attackPower;
     public float range;
@@ -16,5 +16,18 @@ public struct AttackStats
         this.ignoreDefense = ignoreDefense;
         this.criticalChance = criticalChance;
         this.criticalDamage = criticalDamage;
+    }
+
+    public void UpgradeStat(UpgradeType upgradeType, float value)
+    {
+        switch (upgradeType)
+        {
+            case UpgradeType.DamageUp:
+                attackPower += value;
+                break;
+            case UpgradeType.RangeUp:
+                range += value;
+                break;
+        }
     }
 }

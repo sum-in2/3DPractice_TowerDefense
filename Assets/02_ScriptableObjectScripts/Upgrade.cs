@@ -11,4 +11,15 @@ public class Upgrade : ScriptableObject
     public UpgradeType upgradeType;
     public float increaseAmount;
     public int level;
+
+    public void UpgradeLevelAdder()
+    {
+        level++;
+        TowerManager.Instance.UpgradeTowers(towerType, upgradeType);
+    }
+
+    public float GetUpgradeStat()
+    {
+        return increaseAmount * level;
+    }
 }

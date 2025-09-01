@@ -17,12 +17,12 @@ public class Projectile : MonoBehaviour
     }
 
 
-    public void SetDamage(float damage, float criticalChance, float criticalDamage)
+    public void SetDamage(AttackStats attackStats)
     {
         // TODO : 방어력 관통
-        this.damage = damage;
-        this.criticalChance = criticalChance;
-        this.criticalDamage = criticalDamage;
+        this.damage = attackStats.attackPower;
+        this.criticalChance = attackStats.criticalChance;
+        this.criticalDamage = attackStats.criticalDamage;
     }
 
     void Update()
