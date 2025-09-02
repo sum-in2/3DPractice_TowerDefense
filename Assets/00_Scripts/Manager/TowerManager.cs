@@ -10,12 +10,12 @@ public class TowerManager : Singleton<TowerManager>
     public void RegisterTower(BaseTower tower)
     {
         if (!towerList.Contains(tower)) towerList.Add(tower);
+        TowerStatInit(tower);
     }
 
     public void UpgradeTowers(TowerType towerType, UpgradeType upgradeType)
     {
-        if (upgradeSoList.Count == 0)
-            upgradeSoList = SOManager.Instance.GetTowerUpgradeSOList(towerType);
+        upgradeSoList = SOManager.Instance.GetTowerUpgradeSOList(towerType);
 
         var upgradeTarget = upgradeSoList.FirstOrDefault(u => u.upgradeType == upgradeType);
         if (upgradeTarget == null) return;
@@ -23,6 +23,16 @@ public class TowerManager : Singleton<TowerManager>
         foreach (var tower in towerList.Where(t => t.towerType == towerType))
         {
             tower.attackStats.UpgradeStat(upgradeTarget.upgradeType, upgradeTarget.increaseAmount);
+        }
+    }
+
+    private void TowerStatInit(BaseTower tower)
+    {
+        upgradeSoList = SOManager.Instance.GetTowerUpgradeSOList(tower.towerType);
+
+        foreach (Upgrade upgrade in upgradeSoList)
+        {
+            tower.attackStats.UpgradeStat(upgrade.upgradeType, upgrade.increaseAmount * upgrade.level);
         }
     }
 }

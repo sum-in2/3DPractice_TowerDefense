@@ -18,6 +18,11 @@ public class AttackStats
         this.criticalDamage = criticalDamage;
     }
 
+    /// <summary>
+    /// 업그레이드 종류에 Value만큼 증가 시킵니다
+    /// </summary>
+    /// <param name="upgradeType"></param>
+    /// <param name="value"></param>
     public void UpgradeStat(UpgradeType upgradeType, float value)
     {
         switch (upgradeType)
