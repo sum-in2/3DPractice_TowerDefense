@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        if (target == null)
+        if (!target.activeSelf)
         {
             ObjectPoolManager.Instance.ReturnObject(this);
             return;
