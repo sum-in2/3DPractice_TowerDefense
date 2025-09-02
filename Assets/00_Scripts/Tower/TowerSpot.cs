@@ -16,7 +16,7 @@ public class TowerSpot : MonoBehaviour, IClickable
 
     [Header("타워 상태")]
     public bool isOccupied = false; // 타워 설치 여부
-    public int gridX, gridY;        // 그리드 인덱스(옵션)
+    public int gridX, gridY;
 
     void Awake()
     {

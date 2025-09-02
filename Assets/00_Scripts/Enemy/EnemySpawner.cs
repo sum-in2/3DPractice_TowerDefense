@@ -21,7 +21,6 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnEnemies("TestMonster");
     }
 
     public void SpawnEnemies(string enemyName, float spawnInterval = 1f, int enemyCount = 20)

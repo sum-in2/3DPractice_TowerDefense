@@ -3,7 +3,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    private float HP = 100;
+    private float maxHP = 100f;
+    private float HP = 100f;
 
     public void TakeDamage(float damage)
     {
@@ -15,5 +16,9 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         ObjectPoolManager.Instance.ReturnObject(this);
+    }
+    public void ResetHP()
+    {
+        HP = maxHP;
     }
 }

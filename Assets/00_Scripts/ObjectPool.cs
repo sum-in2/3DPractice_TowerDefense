@@ -35,6 +35,7 @@ public class ObjectPool<T> where T : Component
 
     public void ReturnObject(T obj)
     {
+        if (obj is Enemy) obj.gameObject.GetComponent<Enemy>().ResetHP();
         obj.gameObject.SetActive(false);
         objects.Enqueue(obj);
     }
