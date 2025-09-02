@@ -14,9 +14,13 @@ public class EnemySpawner : MonoBehaviour
         enemyPrefabDict = new Dictionary<string, Enemy>();
         foreach (Enemy prefab in enemyPrefabs)
         {
-            ObjectPoolManager.Instance.CreatePool(prefab, 20, transform);
+            GameObject parent = new GameObject(prefab.name);
+            parent.transform.parent = this.transform;
+
+            ObjectPoolManager.Instance.CreatePool(prefab, 20, parent.transform);
             enemyPrefabDict.Add(prefab.name, prefab);
         }
+
     }
 
     void Start()
