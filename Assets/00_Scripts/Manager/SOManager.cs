@@ -6,16 +6,19 @@ public class SOManager : Singleton<SOManager>
 {
     [SerializeField] List<Tech> towerTech;
     [SerializeField] List<Upgrade> towerUpgrade;
+    [SerializeField] List<TowerStat> towerStats;
 
     private Dictionary<TowerType, Tech> towerDict; // Tech가 단순 해금이 아닌 추후에 타워 업그레이드 트리가 생길 수도? 있으? 니까
     private Dictionary<TowerType, List<Upgrade>> upgradeSODict;
     private Dictionary<TowerType, bool> lockStates;
+    private Dictionary<TowerType, AttackStats> statDict;
 
     protected override void Awake()
     {
         base.Awake();
 
         upgradeSODict = new Dictionary<TowerType, List<Upgrade>>();
+        statDict = towerStats.ToDictionary(t => t.towerType, t => t.attackStats);
         towerDict = towerTech.ToDictionary(t => t.techType);
         lockStates = new Dictionary<TowerType, bool>();
 
@@ -32,6 +35,11 @@ public class SOManager : Singleton<SOManager>
         }
 
         UpgradeSOLevelInit();
+    }
+
+    public AttackStats GetTowerStat(TowerType towerType)
+    {
+        return statDict[towerType];
     }
 
     private void UpgradeSOLevelInit()

@@ -6,7 +6,6 @@ public class BasicTower : BaseTower
 
     void Awake()
     {
-        attackStats = new AttackStats(5, 3, 1, 0, 20, 1.5f);
         ObjectPoolManager.Instance.CreatePool(projectilePrefab, 20);
     }
 }

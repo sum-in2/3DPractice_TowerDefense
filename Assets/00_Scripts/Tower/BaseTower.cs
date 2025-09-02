@@ -16,8 +16,12 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     protected virtual void Start()
     {
+        AttackStats originalStat = SOManager.Instance.GetTowerStat(this.towerType);
+        attackStats = new AttackStats(originalStat);
+
         TowerManager.Instance.RegisterTower(this);
         attackBehavior = TowerAttackBehaviorFactory.Create(towerType);
+
         StartAttackRoutine();
     }
 
