@@ -10,12 +10,16 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] EnemySpawner enemySpawner;
     private Coroutine stageCoroutine;
 
+    [SerializeField] int MaxStageLevel = 4;
     private int StageLevel;
 
     protected override void Awake()
     {
         base.Awake();
-        levelMonsterDict[1] = "TestMonster";
+        levelMonsterDict[1] = "TestMonster" + 1;
+        levelMonsterDict[2] = "TestMonster" + 2;
+        levelMonsterDict[3] = "TestMonster" + 3;
+        levelMonsterDict[4] = "TestMonster" + 4;
     }
 
     public void StartStage(int stageLevel = 1, float spawnInterval = 1f, int enemyCount = 20)
@@ -39,8 +43,12 @@ public class StageManager : Singleton<StageManager>
 
     void StopStage()
     {
-        // TODO : NextStage든 끝나고 UI를 띄우든 스테이지 종료 코드  
         stageCoroutine = null;
-        Debug.Log(StageLevel + "Stage 종료");
+        Debug.Log(StageLevel + " Stage 종료");
+
+        if (StageLevel < MaxStageLevel)
+            StartStage(++StageLevel);
+        else
+            Debug.Log("모든 스테이지 클리어");
     }
 }
