@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43376965b400704889edb5b05c98206, type: 3}
   m_Name: PlasmaChainTower_DamageUpgrade
   m_EditorClassIdentifier: 
-  towerType: 0
+  towerType: 2
   upgradeType: 0
   increaseAmount: 3
   level: 0

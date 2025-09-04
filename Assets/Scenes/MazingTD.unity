@@ -366,8 +366,14 @@ MonoBehaviour:
   towerUpgrade:
   - {fileID: 11400000, guid: 760a3d4477d45484688f4479e9ab1e3f, type: 2}
   - {fileID: 11400000, guid: b9d567b92e765f64bbd11853e9aecb96, type: 2}
+  - {fileID: 11400000, guid: 25bde619186c5534d974cb9ff657c95c, type: 2}
+  - {fileID: 11400000, guid: 9144251d4308ed24ebc4f55364d44131, type: 2}
+  - {fileID: 11400000, guid: 17de5bcee8294974e939a6ebaab5bd1d, type: 2}
+  - {fileID: 11400000, guid: be0af4c0d3691ca4c98bf65cb3f672b0, type: 2}
   towerStats:
   - {fileID: 11400000, guid: 70754b55cd7386141b8de3019ccb4459, type: 2}
+  - {fileID: 11400000, guid: cd7fcc3ad7cf49445b1cd34fdc279118, type: 2}
+  - {fileID: 11400000, guid: 46c2ded805eed5642a1a1fb9a089a910, type: 2}
 --- !u!4 &151532571
 Transform:
   m_ObjectHideFlags: 0
@@ -2546,7 +2552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e710bdc5e104a6741b4aace68de0713b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrade: {fileID: 11400000, guid: 760a3d4477d45484688f4479e9ab1e3f, type: 2}
+  upgrade: 0
 --- !u!1 &759385288
 GameObject:
   m_ObjectHideFlags: 0
@@ -6671,7 +6677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e710bdc5e104a6741b4aace68de0713b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrade: {fileID: 11400000, guid: b9d567b92e765f64bbd11853e9aecb96, type: 2}
+  upgrade: 1
 --- !u!1 &1955975773
 GameObject:
   m_ObjectHideFlags: 0

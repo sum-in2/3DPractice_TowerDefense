@@ -22,7 +22,7 @@ public class StageManager : Singleton<StageManager>
         levelMonsterDict[4] = "TestMonster" + 4;
     }
 
-    public void StartStage(int stageLevel = 1, float spawnInterval = 1f, int enemyCount = 20)
+    public void StartStage(int stageLevel = 1, float spawnInterval = 0.1f, int enemyCount = 20)
     {
         if (stageCoroutine != null)
         {

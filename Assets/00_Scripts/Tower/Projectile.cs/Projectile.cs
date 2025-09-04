@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private GameObject target;
-    private float speed = 10f;
+    protected GameObject target;
+    protected float speed = 10f;
 
-    private float damage;
-    private float criticalChance;
-    private float criticalDamage;
+    protected float damage;
+    protected float criticalChance;
+    protected float criticalDamage;
 
     public void SetTarget(GameObject target)
     {
@@ -36,21 +36,9 @@ public class Projectile : MonoBehaviour
         Vector3 direction = (target.transform.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, target.transform.position) < 0.5f)
+        if (Vector3.Distance(transform.position, target.transform.position) < 0.7f)
             HitTarget();
     }
 
-    private void HitTarget()
-    {
-        var enemy = target.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            float finalDamage = damage;
-            if (Random.value < criticalChance * 0.01f)
-                finalDamage *= criticalDamage;
-            enemy.TakeDamage(finalDamage);
-        }
-
-        ObjectPoolManager.Instance.ReturnObject(this);
-    }
+    protected virtual void HitTarget() { }
 }

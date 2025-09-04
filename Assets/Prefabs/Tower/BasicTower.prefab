@@ -129,5 +129,5 @@ MonoBehaviour:
     criticalChance: 0
     criticalDamage: 0
   towerType: 0
-  projectilePrefab: {fileID: -2142571693648187073, guid: 64f36444b27f7c14fac4fd5a341ddd08, type: 3}
+  projectilePrefab: {fileID: 9188511778405034763, guid: 64f36444b27f7c14fac4fd5a341ddd08, type: 3}
   firePoint: {fileID: 1570832526479616406}
