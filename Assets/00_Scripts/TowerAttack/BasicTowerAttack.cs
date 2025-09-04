@@ -10,7 +10,7 @@ public class BasicTowerAttack : IAttackBehavior
             return;
 
         Projectile proj = ObjectPoolManager.Instance.GetObject(basicTower.projectilePrefab);
-        proj.transform.position = basicTower.firePoint.position;
+        proj.transform.position = basicTower.firePoint.position + new UnityEngine.Vector3(0, 0.5f, 0);
         proj.SetTarget(basicTower.currentTarget);
         proj.SetDamage(basicTower.attackStats);
         proj.gameObject.SetActive(true);

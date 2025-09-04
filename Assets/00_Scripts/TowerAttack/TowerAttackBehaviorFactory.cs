@@ -6,8 +6,10 @@ public static class TowerAttackBehaviorFactory
         {
             case TowerType.Basic:
                 return new BasicTowerAttack();
-            case TowerType.A:
-                return new ATowerAttack();
+            case TowerType.Energy:
+                return new EnergyTowerAttack();
+            case TowerType.PlasmaChain:
+                return new PlasmaChainTowerAttack();
             default:
                 return null;
         }

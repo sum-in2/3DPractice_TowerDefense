@@ -81,6 +81,9 @@ public class SOManager : Singleton<SOManager>
 
     public List<Upgrade> GetTowerUpgradeSOList(TowerType towerType)
     {
-        return upgradeSODict[towerType];
+        if (upgradeSODict.ContainsKey(towerType))
+            return upgradeSODict[towerType];
+
+        return null;
     }
 }

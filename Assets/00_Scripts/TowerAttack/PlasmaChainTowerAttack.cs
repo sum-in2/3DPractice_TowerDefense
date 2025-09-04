@@ -1,4 +1,4 @@
-public class ATowerAttack : IAttackBehavior
+public class PlasmaChainTowerAttack : IAttackBehavior
 {
     public void Attack(BaseTower tower)
     {

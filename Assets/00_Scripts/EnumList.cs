@@ -7,8 +7,8 @@ public enum UpgradeType
 public enum TowerType
 {
     Basic,
-    A,
-    B,
+    Energy,
+    PlasmaChain,
     C,
     D,
     E,

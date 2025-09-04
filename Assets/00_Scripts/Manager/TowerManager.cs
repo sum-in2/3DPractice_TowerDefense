@@ -30,6 +30,8 @@ public class TowerManager : Singleton<TowerManager>
     {
         upgradeSoList = SOManager.Instance.GetTowerUpgradeSOList(tower.towerType);
 
+        if (upgradeSoList == null) return;
+
         foreach (Upgrade upgrade in upgradeSoList)
         {
             tower.attackStats.UpgradeStat(upgrade.upgradeType, upgrade.increaseAmount * upgrade.level);

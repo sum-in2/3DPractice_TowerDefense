@@ -56,7 +56,7 @@ public class TowerSpot : MonoBehaviour, IClickable
 
     public GameObject PlaceTower(GameObject towerPrefab)
     {
-        if (CanPlaceTower())
+        if (CanPlaceTower() && towerPrefab.GetComponent<BaseTower>())
         {
             isOccupied = true;
             col.enabled = false;
