@@ -14,15 +14,23 @@ public abstract class BaseTower : MonoBehaviour, IClickable
     private Coroutine attackCoroutine;
     public Projectile projectilePrefab;
 
+    private PreviewRange previewRangeObject;
+
     protected virtual void Start()
     {
-        AttackStats originalStat = SOManager.Instance.GetTowerStat(this.towerType);
-        attackStats = new AttackStats(originalStat);
-
+        StatInit();
         TowerManager.Instance.RegisterTower(this);
         attackBehavior = TowerAttackBehaviorFactory.Create(towerType);
 
+        previewRangeObject = gameObject.GetComponentInChildren<PreviewRange>(true);
+        OnSelect();
         StartAttackRoutine();
+    }
+
+    void StatInit()
+    {
+        AttackStats originalStat = SOManager.Instance.GetTowerStat(this.towerType);
+        attackStats = new AttackStats(originalStat);
     }
 
     protected void StartAttackRoutine()
@@ -75,10 +83,12 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     public void OnSelect()
     {
+        previewRangeObject.SetRangeObjectState(attackStats.range, true);
     }
 
     public void OnDeselect()
     {
+        previewRangeObject.SetRangeObjectState(0, false);
     }
 
     protected virtual void OnDisable()

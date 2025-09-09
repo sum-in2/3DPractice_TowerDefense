@@ -24,7 +24,7 @@ public class GridManager : Singleton<GridManager>
 
     void TowerSpotInit(float xOffset, float yOffset)
     {
-
+        int i = 1;
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -36,6 +36,7 @@ public class GridManager : Singleton<GridManager>
                 TowerSpot spot = Instantiate(towerSpotPrefab, pos, Quaternion.identity, parentTransform);
                 spot.SetIndex(x, y);
                 spot.SetParent(parentTransform);
+                spot.name = "TowerSpot" + i++;
                 spots[x, y] = spot;
             }
         }
