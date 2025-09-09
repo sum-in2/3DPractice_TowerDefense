@@ -3,14 +3,12 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 567c38d12e1895e4d899aa801cd9d238, type: 3}
-  m_Name: PlasmaChainStat
+  m_Name: PlasmaChainStatSO_Default
   m_EditorClassIdentifier: 
   towerType: 2
   attackStats:

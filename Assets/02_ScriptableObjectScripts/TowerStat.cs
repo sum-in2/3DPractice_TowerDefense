@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/TowerStat/BasicTower")]
+[CreateAssetMenu(menuName = "Game/TowerStat/TowerStat")]
 public class TowerStat : ScriptableObject
 {
     public TowerType towerType;

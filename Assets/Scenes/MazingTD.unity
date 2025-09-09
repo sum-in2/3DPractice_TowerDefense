@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 278816590}
   - component: {fileID: 278816589}
   - component: {fileID: 278816592}
+  - component: {fileID: 278816593}
   m_Layer: 5
   m_Name: EnergyTower
   m_TagString: Untagged
@@ -658,6 +659,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 5839030073054199941, guid: ed97aef847962ff488a922109bc28e7c, type: 3}
+--- !u!114 &278816593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278816587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95db633705206164c8c254bd0ade653a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &316568512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,6 +1317,7 @@ GameObject:
   - component: {fileID: 425620787}
   - component: {fileID: 425620786}
   - component: {fileID: 425620789}
+  - component: {fileID: 425620790}
   m_Layer: 5
   m_Name: BasicTower
   m_TagString: Untagged
@@ -1439,6 +1453,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 5839030073054199941, guid: d331e0876643a1845ad8ac956ddf5e7d, type: 3}
+--- !u!114 &425620790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425620784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95db633705206164c8c254bd0ade653a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &427606496
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,6 +2825,7 @@ GameObject:
   - component: {fileID: 829429801}
   - component: {fileID: 829429800}
   - component: {fileID: 829429803}
+  - component: {fileID: 829429804}
   m_Layer: 5
   m_Name: PlasmaChainTower
   m_TagString: Untagged
@@ -2934,6 +2961,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefab: {fileID: 5839030073054199941, guid: 8e48128b51776014187ff708eb94088b, type: 3}
+--- !u!114 &829429804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829429798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95db633705206164c8c254bd0ade653a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
