@@ -3,34 +3,48 @@ using UnityEngine;
 
 public class UpgradeBtn : MonoBehaviour
 {
-    public UpgradeType upgrade;
+    public UpgradeType upgradeType;
 
+    // TODO:  코스트는 언젠가 사용할 듯 싶어서 넣어놓긴 했는데 실질 의미는 아직 없음
+    public int upgradCost = 100;
     public void OnClickUpgradeBtn()
     {
-        // TODO : 선택된 타워 타입 > 해당 타입에 해당하는 SO 레벨 업 시키는 메서드
-        // 연결돼야 하는 매니저 SO매니저, 클릭매니저
-        // 클릭매니저 nowclick 어쩌구 > 캐스팅(basetower) > towerType
-        // SO매니저 > GetTowerUpgradeSOList(towerType) > 리스트 중 UpgradeType에 일치하는 업그레이드 레벨업
-        // upgrade.UpgradeLevelAdder();
-
-        BaseTower towerType = ClickManager.Instance.nowClickObject as BaseTower;
-        if (towerType == null)
+        BaseTower selectedTower = ClickManager.Instance.nowClickObject as BaseTower;
+        if (selectedTower == null)
         {
             Debug.LogWarning("클릭된 타워 없음");
             return;
         }
 
-        List<Upgrade> upgrades = SOManager.Instance.GetTowerUpgradeSOList(towerType.towerType);
-        if (upgrades == null)
+        List<Upgrade> upgrades = SOManager.Instance.GetTowerUpgradeSOList(selectedTower.towerType);
+        if (upgrades == null || upgrades.Count == 0)
         {
-            Debug.LogWarning("해당하는 타워 업그레이드 SO가 없음 > TowerName: " + towerType.name + " UpgradeType: " + upgrade);
+            Debug.LogWarning("해당하는 타워 업그레이드 SO가 없음 > TowerName: " + selectedTower.name + " UpgradeType: " + upgradeType);
             return;
         }
 
-        foreach (Upgrade upgrade in upgrades)
+        Upgrade targetUpgrade = null;
+        foreach (Upgrade upgradeData in upgrades)
         {
-            if (upgrade.upgradeType == this.upgrade)
-                upgrade.UpgradeLevelAdder();
+            if (upgradeData.upgradeType == this.upgradeType)
+            {
+                targetUpgrade = upgradeData;
+                break;
+            }
         }
+
+        if (targetUpgrade == null)
+        {
+            Debug.LogWarning("업그레이드 타입을 찾을 수 없습니다");
+            return;
+        }
+
+        ApplyGlobalUpgrade(targetUpgrade);
+        //비용차감메서드?
+    }
+
+    void ApplyGlobalUpgrade(Upgrade targetUpgrade)
+    {
+        targetUpgrade.UpgradeLevelAdder();
     }
 }

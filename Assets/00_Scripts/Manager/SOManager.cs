@@ -6,19 +6,22 @@ public class SOManager : Singleton<SOManager>
 {
     [SerializeField] List<Tech> towerTech;
     [SerializeField] List<Upgrade> towerUpgrade;
-    [SerializeField] List<TowerStat> towerStats;
+    [SerializeField] List<TowerStat> towerDefaultStats;
+    [SerializeField] List<TowerStat> towerRunTimeStats;
 
     private Dictionary<TowerType, Tech> towerDict; // Tech가 단순 해금이 아닌 추후에 타워 업그레이드 트리가 생길 수도? 있으? 니까
     private Dictionary<TowerType, List<Upgrade>> upgradeSODict;
     private Dictionary<TowerType, bool> lockStates;
-    private Dictionary<TowerType, AttackStats> statDict;
+    private Dictionary<TowerType, AttackStats> defaultStatDict;
+    private Dictionary<TowerType, AttackStats> runtimeStatDict;
 
     protected override void Awake()
     {
         base.Awake();
 
         upgradeSODict = new Dictionary<TowerType, List<Upgrade>>();
-        statDict = towerStats.ToDictionary(t => t.towerType, t => t.attackStats);
+        defaultStatDict = towerDefaultStats.ToDictionary(t => t.towerType, t => t.attackStats);
+        runtimeStatDict = towerRunTimeStats.ToDictionary(t => t.towerType, t => t.attackStats);
         towerDict = towerTech.ToDictionary(t => t.techType);
         lockStates = new Dictionary<TowerType, bool>();
 
@@ -37,9 +40,14 @@ public class SOManager : Singleton<SOManager>
         UpgradeSOLevelInit();
     }
 
-    public AttackStats GetTowerStat(TowerType towerType)
+    public AttackStats GetTowerDefaultStat(TowerType towerType)
     {
-        return statDict[towerType];
+        return defaultStatDict[towerType];
+    }
+
+    public AttackStats GetTowerRuntimeStat(TowerType towerType)
+    {
+        return runtimeStatDict[towerType];
     }
 
     private void UpgradeSOLevelInit()
@@ -85,5 +93,22 @@ public class SOManager : Singleton<SOManager>
             return upgradeSODict[towerType];
 
         return null;
+    }
+
+    public void ApplyGlobalUpgrade(TowerType towerType, UpgradeType upgradeType, float increaseAmount)
+    {
+        runtimeStatDict[towerType].UpgradeStat(upgradeType, increaseAmount);
+
+        RefreshTowersOfType(towerType);
+    }
+
+    private void RefreshTowersOfType(TowerType towerType)
+    {
+        List<BaseTower> towersOfType = TowerManager.Instance.GetTowersOfType(towerType);
+        foreach (BaseTower tower in towersOfType)
+        {
+            tower.baseAttackStats = new AttackStats(runtimeStatDict[towerType]);
+            tower.RefreshCurrentStats();
+        }
     }
 }

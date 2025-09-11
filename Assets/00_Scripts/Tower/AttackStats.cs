@@ -7,6 +7,7 @@ public class AttackStats
     public float ignoreDefense;
     public float criticalChance;
     public float criticalDamage;
+    public AttackStats() { }
 
     public AttackStats(AttackStats other)
     {

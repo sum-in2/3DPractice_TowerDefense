@@ -13,7 +13,7 @@ public class PreviewRangeBtnHover : MonoBehaviour, IPointerEnterHandler, IPointe
     void RangeInit()
     {
         towerType = gameObject.GetComponent<PlaceTowerBtn>().towerPrefab.GetComponent<BaseTower>().towerType;
-        AttackStats attackStat = SOManager.Instance.GetTowerStat(towerType);
+        AttackStats attackStat = SOManager.Instance.GetTowerRuntimeStat(towerType);
         towerRange = attackStat.range;
     }
 

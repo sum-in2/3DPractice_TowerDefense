@@ -12,7 +12,7 @@ public class EnergyTowerAttack : IAttackBehavior
         Projectile proj = ObjectPoolManager.Instance.GetObject(energyTower.projectilePrefab);
         proj.transform.position = energyTower.firePoint.position + new UnityEngine.Vector3(0, 0.5f, 0);
         proj.SetTarget(energyTower.currentTarget);
-        proj.SetDamage(energyTower.attackStats);
+        proj.SetDamage(energyTower.currentAttackStats);
         proj.gameObject.SetActive(true);
     }
 }

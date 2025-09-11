@@ -5,36 +5,26 @@ using UnityEngine;
 public class TowerManager : Singleton<TowerManager>
 {
     private List<BaseTower> towerList = new List<BaseTower>();
-    private List<Upgrade> upgradeSoList = new List<Upgrade>();
 
     public void RegisterTower(BaseTower tower)
     {
-        if (!towerList.Contains(tower)) towerList.Add(tower);
-        TowerStatInit(tower);
+        if (!towerList.Contains(tower))
+            towerList.Add(tower);
     }
 
-    public void UpgradeTowers(TowerType towerType, UpgradeType upgradeType)
+    public void UpgradeTowers(TowerType towerType, UpgradeType upgradeType, float increaseAmount)
     {
-        upgradeSoList = SOManager.Instance.GetTowerUpgradeSOList(towerType);
-
-        var upgradeTarget = upgradeSoList.FirstOrDefault(u => u.upgradeType == upgradeType);
-        if (upgradeTarget == null) return;
-
-        foreach (var tower in towerList.Where(t => t.towerType == towerType))
-        {
-            tower.attackStats.UpgradeStat(upgradeTarget.upgradeType, upgradeTarget.increaseAmount);
-        }
+        SOManager.Instance.ApplyGlobalUpgrade(towerType, upgradeType, increaseAmount);
     }
 
-    private void TowerStatInit(BaseTower tower)
+    public List<BaseTower> GetTowersOfType(TowerType towerType)
     {
-        upgradeSoList = SOManager.Instance.GetTowerUpgradeSOList(tower.towerType);
+        return towerList.Where(t => t.towerType == towerType).ToList();
+    }
 
-        if (upgradeSoList == null) return;
-
-        foreach (Upgrade upgrade in upgradeSoList)
-        {
-            tower.attackStats.UpgradeStat(upgrade.upgradeType, upgrade.increaseAmount * upgrade.level);
-        }
+    public void RemoveTower(BaseTower tower)
+    {
+        if (towerList.Contains(tower))
+            towerList.Remove(tower);
     }
 }
