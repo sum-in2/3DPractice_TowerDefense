@@ -23,6 +23,6 @@ public enum PopupType
 public enum StateType
 {
     None,
-    Upgrade,
-    Tower,
+    TowerSelect,
+    TowerSpotSelect,
 }

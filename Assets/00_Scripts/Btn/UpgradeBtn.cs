@@ -40,7 +40,7 @@ public class UpgradeBtn : MonoBehaviour
         }
 
         ApplyGlobalUpgrade(targetUpgrade);
-        //비용차감메서드?
+        // TODO: 비용차감메서드?
     }
 
     void ApplyGlobalUpgrade(Upgrade targetUpgrade)

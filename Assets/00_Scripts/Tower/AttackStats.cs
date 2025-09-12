@@ -5,8 +5,8 @@ public class AttackStats
     public float range;
     public float attackSpeed;
     public float ignoreDefense;
-    public float criticalChance;
-    public float criticalDamage;
+    public float critChance;
+    public float critDamage;
     public AttackStats() { }
 
     public AttackStats(AttackStats other)
@@ -15,8 +15,8 @@ public class AttackStats
         this.range = other.range;
         this.attackSpeed = other.attackSpeed;
         this.ignoreDefense = other.ignoreDefense;
-        this.criticalChance = other.criticalChance;
-        this.criticalDamage = other.criticalDamage;
+        this.critChance = other.critChance;
+        this.critDamage = other.critDamage;
     }
 
     /// <summary>

@@ -12,7 +12,7 @@ public class TowerSpot : MonoBehaviour, IClickable
     public Color defaultColor = Color.green;
     public Color selectedColor = Color.yellow;
 
-    public StateType currentState { get; private set; } = StateType.Tower;
+    public StateType currentState { get; private set; } = StateType.TowerSpotSelect;
 
     [Header("타워 상태")]
     public bool isOccupied = false; // 타워 설치 여부

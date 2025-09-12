@@ -10,7 +10,7 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     public List<IndividualUpgrade> individualUpgrades = new List<IndividualUpgrade>();
     public TowerType towerType;
-    public StateType currentState { get; private set; } = StateType.Upgrade;
+    public StateType currentState { get; private set; } = StateType.TowerSelect;
 
     public GameObject currentTarget { get; private set; }
 
@@ -31,7 +31,7 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     void StatInit()
     {
-        AttackStats runtimeStat = SOManager.Instance.GetTowerRuntimeStat(this.towerType);
+        AttackStats runtimeStat = SOManager.Instance.GetTowerDefaultStat(this.towerType);
         baseAttackStats = new AttackStats(runtimeStat);
 
         RefreshCurrentStats();

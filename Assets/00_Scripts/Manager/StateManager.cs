@@ -25,6 +25,7 @@ public class StateManager : MonoBehaviour
             }
         }
     }
+    [SerializeField] private TowerInfoUI towerInfoUI;
 
     public void SetState(StateType state)
     {
@@ -34,34 +35,64 @@ public class StateManager : MonoBehaviour
     private void Start()
     {
         OnStateChanged += HandleStateChanged;
+
+        if (towerInfoUI != null)
+            towerInfoUI.Initialize(this);
+    }
+
+    private void OnEnable()
+    {
+        TowerBtnHover.OnTowerHover += HandleTowerHover;
+        TowerBtnHover.OnTowerHoverExit += HandleTowerHoverExit;
+    }
+
+    private void OnDisable()
+    {
+        TowerBtnHover.OnTowerHover -= HandleTowerHover;
+        TowerBtnHover.OnTowerHoverExit -= HandleTowerHoverExit;
+    }
+
+    private void HandleTowerHover(TowerType towerType, AttackStats attackStats)
+    {
+        if (CurrentState == StateType.TowerSpotSelect && towerInfoUI != null)
+            towerInfoUI.UpdateTowerInfo(towerType, attackStats);
+    }
+
+    private void HandleTowerHoverExit()
+    {
+        if (CurrentState == StateType.TowerSpotSelect && towerInfoUI != null)
+            towerInfoUI.HideTowerInfo();
     }
 
     private void HandleStateChanged(StateType newState)
     {
         switch (newState)
         {
-            case StateType.Tower:
+            case StateType.TowerSpotSelect:
                 ToggleButtons(towerButtons, true);
                 ToggleButtons(upgradeButtons, false);
                 UpdateButtonLockState(towerButtons);
                 break;
 
-            case StateType.Upgrade:
+            case StateType.TowerSelect:
                 ToggleButtons(towerButtons, false);
                 ToggleButtons(upgradeButtons, true);
                 UpdateButtonLockState(upgradeButtons);
+                if (towerInfoUI != null)
+                    towerInfoUI.HideTowerInfo();
                 break;
 
             default:
                 centerPanel.SetActive(false);
                 rightPanel.SetActive(false);
+                if (towerInfoUI != null)
+                    towerInfoUI.HideTowerInfo();
                 break;
         }
     }
 
     private void ToggleButtons(List<GameObject> buttons, bool isActive)
     {
-        if (!centerPanel.activeSelf) centerPanel.SetActive(true);
         if (!rightPanel.activeSelf) rightPanel.SetActive(true);
         if (buttons == null) return;
 

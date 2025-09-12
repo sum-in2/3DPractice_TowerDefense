@@ -38,6 +38,15 @@ public class SOManager : Singleton<SOManager>
         }
 
         UpgradeSOLevelInit();
+        CopyAllDefaultToRuntime();
+    }
+
+    public void CopyAllDefaultToRuntime()
+    {
+        foreach (KeyValuePair<TowerType, AttackStats> kvp in defaultStatDict)
+        {
+            runtimeStatDict[kvp.Key] = new AttackStats(kvp.Value);
+        }
     }
 
     public AttackStats GetTowerDefaultStat(TowerType towerType)
