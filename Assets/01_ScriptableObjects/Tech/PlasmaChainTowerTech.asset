@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   techType: 2
   level: 1
-  description: "\uC5F0\uC1C4 \uACF5\uACA9\uC744 \uD558\uB294 \uD50C\uB77C\uC988\uB9C8
-    \uD0C0\uC6CC\uC785\uB2C8\uB2E4."
+  description: "\uC5F0\uC1C4 \uACF5\uACA9\uC744 \uD558\uB294 <nobr>\uD50C\uB77C\uC988\uB9C8
+    \uD0C0\uC6CC</nobr>\uC785\uB2C8\uB2E4."

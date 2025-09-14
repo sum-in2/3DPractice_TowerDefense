@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SOManager : Singleton<SOManager>
@@ -9,7 +10,7 @@ public class SOManager : Singleton<SOManager>
     [SerializeField] List<TowerStat> towerDefaultStats;
     [SerializeField] List<TowerStat> towerRunTimeStats;
 
-    private Dictionary<TowerType, Tech> towerDict; // Tech가 단순 해금이 아닌 추후에 타워 업그레이드 트리가 생길 수도? 있으? 니까
+    private Dictionary<TowerType, Tech> towerTechDict; // Tech가 단순 해금이 아닌 추후에 타워 업그레이드 트리가 생길 수도? 있으? 니까
     private Dictionary<TowerType, List<Upgrade>> upgradeSODict;
     private Dictionary<TowerType, bool> lockStates;
     private Dictionary<TowerType, AttackStats> defaultStatDict;
@@ -22,7 +23,7 @@ public class SOManager : Singleton<SOManager>
         upgradeSODict = new Dictionary<TowerType, List<Upgrade>>();
         defaultStatDict = towerDefaultStats.ToDictionary(t => t.towerType, t => t.attackStats);
         runtimeStatDict = towerRunTimeStats.ToDictionary(t => t.towerType, t => t.attackStats);
-        towerDict = towerTech.ToDictionary(t => t.techType);
+        towerTechDict = towerTech.ToDictionary(t => t.techType);
         lockStates = new Dictionary<TowerType, bool>();
 
         foreach (Upgrade upgrade in towerUpgrade)
@@ -32,7 +33,7 @@ public class SOManager : Singleton<SOManager>
             upgradeSODict[upgrade.towerType].Add(upgrade);
         }
 
-        foreach (var pair in towerDict)
+        foreach (var pair in towerTechDict)
         {
             lockStates[pair.Key] = (pair.Value.level == 0);
         }
@@ -76,23 +77,23 @@ public class SOManager : Singleton<SOManager>
 
     public void SetTowerLevel(TowerType type, int level)
     {
-        if (!towerDict.ContainsKey(type)) return;
+        if (!towerTechDict.ContainsKey(type)) return;
 
-        towerDict[type].level = level;
+        towerTechDict[type].level = level;
         lockStates[type] = (level == 0);
     }
     public void TowerLevelAdder(TowerType type)
     {
-        if (!towerDict.ContainsKey(type)) return;
+        if (!towerTechDict.ContainsKey(type)) return;
 
-        towerDict[type].level += 1;
+        towerTechDict[type].level += 1;
         if (!lockStates[type]) lockStates[type] = true;
     }
 
     private int GetTowerLevel(TowerType type)
     {
-        if (towerDict.ContainsKey(type))
-            return towerDict[type].level;
+        if (towerTechDict.ContainsKey(type))
+            return towerTechDict[type].level;
         return -1;
     }
 
@@ -119,5 +120,10 @@ public class SOManager : Singleton<SOManager>
             tower.baseAttackStats = new AttackStats(runtimeStatDict[towerType]);
             tower.RefreshCurrentStats();
         }
+    }
+
+    public Tech GetTowerTech(TowerType towerType)
+    {
+        return towerTechDict.ContainsKey(towerType) ? towerTechDict[towerType] : null;
     }
 }

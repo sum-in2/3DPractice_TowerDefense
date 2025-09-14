@@ -5,6 +5,7 @@ public class TowerInfoUI : MonoBehaviour
 {
     [Header("스탯 표시 UI 요소들")]
     [SerializeField] private TextMeshProUGUI towerNameText;
+    [SerializeField] private TextMeshProUGUI towerDescriptionText;
     [SerializeField] private TextMeshProUGUI damageText;
     [SerializeField] private TextMeshProUGUI rangeText;
     [SerializeField] private TextMeshProUGUI attackSpeedText;
@@ -23,8 +24,11 @@ public class TowerInfoUI : MonoBehaviour
         HideTowerInfo();
     }
 
-    public void UpdateTowerInfo(TowerType towerType, AttackStats attackStats)
+    public void UpdateTowerInfo(TowerType towerType, string towerDescription, AttackStats attackStats)
     {
+        if (towerDescription != null)
+            towerDescriptionText.text = towerDescription;
+
         if (towerNameText != null)
             towerNameText.text = towerType.ToString();
 

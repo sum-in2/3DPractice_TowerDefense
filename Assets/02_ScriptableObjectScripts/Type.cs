@@ -10,4 +10,11 @@ public class Tech : ScriptableObject
     public TowerType techType;
     public int level;
     public string description;
+
+    public Tech(Tech other)
+    {
+        this.techType = other.techType;
+        this.level = other.level;
+        this.description = other.description;
+    }
 }

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 0
   attackStats:
-    attackPower: 5
+    attackPower: 8
     range: 3
     attackSpeed: 1
     ignoreDefense: 0
-    criticalChance: 20
-    criticalDamage: 1.5
+    critChance: 0
+    critDamage: 0

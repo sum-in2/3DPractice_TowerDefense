@@ -55,7 +55,14 @@ public class StateManager : MonoBehaviour
     private void HandleTowerHover(TowerType towerType, AttackStats attackStats)
     {
         if (CurrentState == StateType.TowerSpotSelect && towerInfoUI != null)
-            towerInfoUI.UpdateTowerInfo(towerType, attackStats);
+        {
+            Tech tech = SOManager.Instance.GetTowerTech(towerType);
+
+            if (tech == null)
+                return;
+
+            towerInfoUI.UpdateTowerInfo(towerType, tech.description, attackStats);
+        }
     }
 
     private void HandleTowerHoverExit()

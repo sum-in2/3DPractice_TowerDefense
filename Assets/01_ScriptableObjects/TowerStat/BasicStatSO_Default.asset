@@ -18,5 +18,5 @@ MonoBehaviour:
     range: 3
     attackSpeed: 1
     ignoreDefense: 0
-    criticalChance: 20
-    criticalDamage: 1.5
+    critChance: 0.2
+    critDamage: 1.5
