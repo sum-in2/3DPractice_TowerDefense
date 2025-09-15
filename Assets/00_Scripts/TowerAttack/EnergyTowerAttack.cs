@@ -2,7 +2,7 @@ public class EnergyTowerAttack : IAttackBehavior
 {
     public void Attack(BaseTower tower)
     {
-        var energyTower = tower as EnergyTower;
+        var energyTower = tower as PlasmaChainTower;
         if (energyTower == null)
             return;
 

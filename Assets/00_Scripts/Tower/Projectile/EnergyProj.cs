@@ -11,7 +11,7 @@ public class EnergyProj : Projectile
         if (enemy != null)
         {
             float finalDamage = damage;
-            if (Random.value < criticalChance * 0.01f)
+            if (Random.value < criticalChance)
                 finalDamage *= criticalDamage;
             enemy.TakeDamage(finalDamage);
             SplashDamage(enemy, finalDamage * 0.7f);

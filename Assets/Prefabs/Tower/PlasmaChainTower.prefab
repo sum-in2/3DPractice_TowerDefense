@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2620926228992521890}
   - component: {fileID: 3249426959700306550}
   - component: {fileID: 6284657437632288134}
-  - component: {fileID: 8057063263873366479}
+  - component: {fileID: 2157675464500219091}
   m_Layer: 0
   m_Name: PlasmaChainTower
   m_TagString: Tower
@@ -110,7 +110,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8057063263873366479
+--- !u!114 &2157675464500219091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,18 +119,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 5839030073054199941}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7566076dad617ac458d8ae26deb5fbdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e2616e4cd3e7214fb628ff124156860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackStats:
+  baseAttackStats:
     attackPower: 0
     range: 0
     attackSpeed: 0
     ignoreDefense: 0
-    criticalChance: 0
-    criticalDamage: 0
+    critChance: 0
+    critDamage: 0
+  currentAttackStats:
+    attackPower: 0
+    range: 0
+    attackSpeed: 0
+    ignoreDefense: 0
+    critChance: 0
+    critDamage: 0
+  individualUpgrades: []
   towerType: 2
-  projectilePrefab: {fileID: -2142571693648187073, guid: 64f36444b27f7c14fac4fd5a341ddd08, type: 3}
+  projectilePrefab: {fileID: 5112147604263755005, guid: c16ec252ec54a7d4f9ef09addfe0b39e, type: 3}
   firePoint: {fileID: 1570832526479616406}
 --- !u!1001 &4253872889331699885
 PrefabInstance:
