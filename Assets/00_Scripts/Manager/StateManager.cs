@@ -56,12 +56,7 @@ public class StateManager : MonoBehaviour
     {
         if (CurrentState == StateType.TowerSpotSelect && towerInfoUI != null)
         {
-            Tech tech = SOManager.Instance.GetTowerTech(towerType);
-
-            if (tech == null)
-                return;
-
-            towerInfoUI.UpdateTowerInfo(towerType, tech.description, attackStats);
+            towerInfoUI.UpdateTowerInfo(towerType, attackStats);
         }
     }
 
@@ -85,8 +80,8 @@ public class StateManager : MonoBehaviour
                 ToggleButtons(towerButtons, false);
                 ToggleButtons(upgradeButtons, true);
                 UpdateButtonLockState(upgradeButtons);
-                if (towerInfoUI != null)
-                    towerInfoUI.HideTowerInfo();
+
+                ShowSelectedTowerInfo();
                 break;
 
             default:
@@ -95,6 +90,15 @@ public class StateManager : MonoBehaviour
                 if (towerInfoUI != null)
                     towerInfoUI.HideTowerInfo();
                 break;
+        }
+    }
+
+    private void ShowSelectedTowerInfo()
+    {
+        IClickable clickable = ClickManager.Instance.nowClickObject;
+        if (towerInfoUI != null && clickable is BaseTower tower)
+        {
+            towerInfoUI.UpdateTowerInfo(tower.towerType, tower.currentAttackStats);
         }
     }
 
@@ -110,7 +114,6 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    // 새로 추가한 버튼 잠금 상태 갱신 메서드
     public void UpdateButtonLockState(List<GameObject> buttons)
     {
         if (buttons == null) return;

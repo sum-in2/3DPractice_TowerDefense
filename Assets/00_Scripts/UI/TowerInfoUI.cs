@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.UIElements;
+using Unity.VisualScripting;
 public class TowerInfoUI : MonoBehaviour
 {
-    [Header("스탯 표시 UI 요소들")]
+    [Header("스탯 표시 UI")]
     [SerializeField] private TextMeshProUGUI towerNameText;
     [SerializeField] private TextMeshProUGUI towerDescriptionText;
     [SerializeField] private TextMeshProUGUI damageText;
@@ -22,10 +24,58 @@ public class TowerInfoUI : MonoBehaviour
     {
         stateManager = manager;
         HideTowerInfo();
+
+        UIEvents.OnStateChangeRequested += HandleStateChange;
+
+        TowerBtnHover.OnTowerHover += HandleTowerHover;
+        TowerBtnHover.OnTowerHoverExit += HandleTowerHoverExit;
     }
 
-    public void UpdateTowerInfo(TowerType towerType, string towerDescription, AttackStats attackStats)
+    void OnDestroy()
     {
+        UIEvents.OnStateChangeRequested -= HandleStateChange;
+
+        TowerBtnHover.OnTowerHover -= HandleTowerHover;
+        TowerBtnHover.OnTowerHoverExit -= HandleTowerHoverExit;
+    }
+
+    void HandleTowerHover(TowerType towerType, AttackStats attackStats)
+    {
+        IClickable clickable = ClickManager.Instance.nowClickObject;
+        if (clickable != null && clickable.currentState == StateType.TowerSpotSelect)
+        {
+            UpdateTowerInfo(towerType, attackStats);
+        }
+    }
+
+    void HandleTowerHoverExit()
+    {
+        IClickable clickable = ClickManager.Instance.nowClickObject;
+        if (clickable != null && clickable.currentState == StateType.TowerSpotSelect)
+        {
+            HideTowerInfo();
+        }
+    }
+
+    void HandleStateChange(StateType newState)
+    {
+        if (newState == StateType.TowerSelect)
+        {
+            IClickable clickable = ClickManager.Instance.nowClickObject;
+            if (clickable is BaseTower tower)
+            {
+                UpdateTowerInfo(tower.towerType, tower.currentAttackStats);
+            }
+        }
+        else
+        {
+            HideTowerInfo();
+        }
+    }
+
+    public void UpdateTowerInfo(TowerType towerType, AttackStats attackStats)
+    {
+        string towerDescription = GetTowerDescription(towerType);
         if (towerDescription != null)
             towerDescriptionText.text = towerDescription;
 
@@ -51,6 +101,11 @@ public class TowerInfoUI : MonoBehaviour
             critDamageText.text = attackStats.critDamage.ToString("F1") + "x";
 
         ShowTowerInfo();
+    }
+
+    private string GetTowerDescription(TowerType towerType)
+    {
+        return SOManager.Instance.GetTowerTech(towerType)?.description;
     }
 
     public void ShowTowerInfo()

@@ -3279,7 +3279,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'BaseTower
+  m_text: 'Basic
 
 '
   m_isRightToLeft: 0
@@ -6377,7 +6377,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 65.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6729,7 +6729,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PlasmaChain
+  m_text: 'Plasma
+
+    Chain'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4c238e8566e7b1498c575fc22dfd127, type: 2}
   m_sharedMaterial: {fileID: 7923783964299627583, guid: d4c238e8566e7b1498c575fc22dfd127, type: 2}
@@ -6767,7 +6769,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
-  m_wordSpacing: 0
+  m_wordSpacing: 1
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
