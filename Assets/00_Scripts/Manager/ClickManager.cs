@@ -56,10 +56,6 @@ public class ClickManager : Singleton<ClickManager>
         DeselectAllExcept(nowClickObject);
     }
 
-    /// <summary>
-    /// 모든 IClickable 오브젝트의 선택을 해제합니다
-    /// </summary>
-    /// <param name="selected"></param>
     private void DeselectAllExcept(IClickable selected)
     {
         Scene activeScene = SceneManager.GetActiveScene();
@@ -79,7 +75,19 @@ public class ClickManager : Singleton<ClickManager>
     public void PlaceTower(GameObject towerPrefab)
     {
         TowerSpot myTowerSpot = nowClickObject as TowerSpot;
-        if (myTowerSpot)
-            nowClickObject = myTowerSpot.PlaceTower(towerPrefab).GetComponent<IClickable>();
+
+        if (myTowerSpot && myTowerSpot.CanPlaceTower())
+        {
+            GameObject towerGameObject = myTowerSpot.PlaceTower(towerPrefab);
+
+            if (towerGameObject != null)
+            {
+                BaseTower placedTower = towerGameObject.GetComponent<BaseTower>();
+                nowClickObject = placedTower;
+
+                if (UIManager.Instance != null && UIManager.Instance.stateManager != null)
+                    UIManager.Instance.stateManager.OnTowerPlaced(placedTower);
+            }
+        }
     }
 }

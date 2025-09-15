@@ -7,21 +7,19 @@ using System;
 /// </summary>
 public class TowerBtnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public static Action<TowerType, AttackStats> OnTowerHover;
+    public static Action<TowerType> OnTowerHover;
     public static Action OnTowerHoverExit;
 
     private TowerType towerType;
-    private AttackStats attackStats;
 
     void Start()
     {
         towerType = gameObject.GetComponent<PlaceTowerBtn>().towerPrefab.GetComponent<BaseTower>().towerType;
-        attackStats = SOManager.Instance.GetTowerRuntimeStat(towerType);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnTowerHover?.Invoke(towerType, attackStats);
+        OnTowerHover?.Invoke(towerType);
     }
 
     public void OnPointerExit(PointerEventData eventData)

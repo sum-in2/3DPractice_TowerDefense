@@ -16,6 +16,8 @@ public class SOManager : Singleton<SOManager>
     private Dictionary<TowerType, AttackStats> defaultStatDict;
     private Dictionary<TowerType, AttackStats> runtimeStatDict;
 
+    public System.Action<TowerType> OnTowerUpgraded;
+
     protected override void Awake()
     {
         base.Awake();
@@ -108,8 +110,9 @@ public class SOManager : Singleton<SOManager>
     public void ApplyGlobalUpgrade(TowerType towerType, UpgradeType upgradeType, float increaseAmount)
     {
         runtimeStatDict[towerType].UpgradeStat(upgradeType, increaseAmount);
-
         RefreshTowersOfType(towerType);
+
+        OnTowerUpgraded?.Invoke(towerType);
     }
 
     private void RefreshTowersOfType(TowerType towerType)

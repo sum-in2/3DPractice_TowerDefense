@@ -44,20 +44,29 @@ public class StateManager : MonoBehaviour
     {
         TowerBtnHover.OnTowerHover += HandleTowerHover;
         TowerBtnHover.OnTowerHoverExit += HandleTowerHoverExit;
+
+        SOManager.Instance.OnTowerUpgraded += HandleTowerUpgraded;
     }
 
     private void OnDisable()
     {
         TowerBtnHover.OnTowerHover -= HandleTowerHover;
         TowerBtnHover.OnTowerHoverExit -= HandleTowerHoverExit;
+
+        SOManager.Instance.OnTowerUpgraded -= HandleTowerUpgraded;
     }
 
-    private void HandleTowerHover(TowerType towerType, AttackStats attackStats)
+    private void HandleTowerUpgraded(TowerType towerType)
+    {
+        BaseTower clickable = ClickManager.Instance.nowClickObject as BaseTower;
+        if (currentState == StateType.TowerSelect && clickable.towerType == towerType)
+            RefreshSelectedTowerInfo();
+    }
+
+    private void HandleTowerHover(TowerType towerType)
     {
         if (CurrentState == StateType.TowerSpotSelect && towerInfoUI != null)
-        {
-            towerInfoUI.UpdateTowerInfo(towerType, attackStats);
-        }
+            towerInfoUI.UpdateTowerInfo(towerType);
     }
 
     private void HandleTowerHoverExit()
@@ -96,10 +105,9 @@ public class StateManager : MonoBehaviour
     private void ShowSelectedTowerInfo()
     {
         IClickable clickable = ClickManager.Instance.nowClickObject;
+
         if (towerInfoUI != null && clickable is BaseTower tower)
-        {
-            towerInfoUI.UpdateTowerInfo(tower.towerType, tower.currentAttackStats);
-        }
+            towerInfoUI.UpdateTowerInfo(tower.towerType);
     }
 
     private void ToggleButtons(List<GameObject> buttons, bool isActive)
@@ -139,5 +147,17 @@ public class StateManager : MonoBehaviour
                     lockIcon.SetActive(isLocked);
             }
         }
+    }
+
+    public void RefreshSelectedTowerInfo()
+    {
+        if (currentState == StateType.TowerSelect)
+            ShowSelectedTowerInfo();
+    }
+
+    public void OnTowerPlaced(BaseTower tower)
+    {
+        if (tower != null)
+            currentState = StateType.TowerSelect;
     }
 }

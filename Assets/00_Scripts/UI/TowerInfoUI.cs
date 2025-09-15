@@ -39,12 +39,12 @@ public class TowerInfoUI : MonoBehaviour
         TowerBtnHover.OnTowerHoverExit -= HandleTowerHoverExit;
     }
 
-    void HandleTowerHover(TowerType towerType, AttackStats attackStats)
+    void HandleTowerHover(TowerType towerType)
     {
         IClickable clickable = ClickManager.Instance.nowClickObject;
         if (clickable != null && clickable.currentState == StateType.TowerSpotSelect)
         {
-            UpdateTowerInfo(towerType, attackStats);
+            UpdateTowerInfo(towerType);
         }
     }
 
@@ -64,7 +64,7 @@ public class TowerInfoUI : MonoBehaviour
             IClickable clickable = ClickManager.Instance.nowClickObject;
             if (clickable is BaseTower tower)
             {
-                UpdateTowerInfo(tower.towerType, tower.currentAttackStats);
+                UpdateTowerInfo(tower.towerType);
             }
         }
         else
@@ -73,8 +73,10 @@ public class TowerInfoUI : MonoBehaviour
         }
     }
 
-    public void UpdateTowerInfo(TowerType towerType, AttackStats attackStats)
+    public void UpdateTowerInfo(TowerType towerType)
     {
+        AttackStats attackStats = SOManager.Instance.GetTowerRuntimeStat(towerType);
+
         string towerDescription = GetTowerDescription(towerType);
         if (towerDescription != null)
             towerDescriptionText.text = towerDescription;

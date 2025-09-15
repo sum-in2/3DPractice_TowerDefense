@@ -8,7 +8,7 @@ using System.Data;
 public class UIManager : Singleton<UIManager>
 {
     private PopupManager popupManager;
-    private StateManager stateManager;
+    public StateManager stateManager { get; private set; }
 
     protected override void Awake()
     {
