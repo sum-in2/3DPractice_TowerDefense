@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 public class ChainProjectile : Projectile
 {
@@ -7,12 +8,21 @@ public class ChainProjectile : Projectile
     public float chainRange = 5f;
     public float chainDamageReduction = 0.8f;
 
+    public VisualEffect lightningVFX;
+
     private int currentChainCount = 0;
     private List<Enemy> hitEnemies = new List<Enemy>();
 
     void OnEnable()
     {
         currentChainCount = 0;
+        hitEnemies.Clear();
+
+        if (lightningVFX != null)
+        {
+            lightningVFX.Stop();
+            lightningVFX.Reinit();
+        }
     }
 
     protected override void HitTarget()
@@ -69,9 +79,29 @@ public class ChainProjectile : Projectile
     private void ChainToNextTarget(Enemy nextTarget)
     {
         currentChainCount++;
+
+        Vector3 currentPos = transform.position;
+        Vector3 endPos = nextTarget.transform.position;
+
+        PlayLightningEffect(currentPos, endPos);
+
         target = nextTarget.gameObject;
 
         Vector3 direction = (target.transform.position - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    private void PlayLightningEffect(Vector3 startPos, Vector3 endPos)
+    {
+        if (lightningVFX != null)
+        {
+            VFXEventAttribute eventAttribute = lightningVFX.CreateVFXEventAttribute();
+
+            eventAttribute.SetVector3("StartPosition", startPos);
+            eventAttribute.SetVector3("EndPosition", endPos);
+
+            lightningVFX.SendEvent("OnPlay", eventAttribute);
+            Debug.Log("onplay");
+        }
     }
 }

@@ -20,9 +20,12 @@ public class PreviewRangeBtnHover : MonoBehaviour, IPointerEnterHandler, IPointe
     public void OnPointerEnter(PointerEventData eventData)
     {
         IClickable clickable = ClickManager.Instance.nowClickObject;
-        RangeInit();
-        nowTowerSpot = (clickable as TowerSpot)?.gameObject;
-        nowTowerSpot.GetComponentInChildren<PreviewRange>(true)?.SetRangeObjectState(towerRange, true);
+        if (clickable != null)
+        {
+            RangeInit();
+            nowTowerSpot = (clickable as TowerSpot)?.gameObject;
+            nowTowerSpot.GetComponentInChildren<PreviewRange>(true)?.SetRangeObjectState(towerRange, true);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
