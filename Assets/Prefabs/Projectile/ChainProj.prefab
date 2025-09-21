@@ -67,8 +67,7 @@ MeshRenderer:
   m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 15f7902fc2a9464409b4556d7a711c71, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,7 +134,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814300921749748607}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 253919d3796d2494291a3a4e1844d23a, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: ea57a2569a9d1bc45b068f7238318f20, type: 3}
   m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 131701024
@@ -213,4 +212,4 @@ VFXRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20

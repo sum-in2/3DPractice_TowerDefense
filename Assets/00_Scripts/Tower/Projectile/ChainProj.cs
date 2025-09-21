@@ -83,6 +83,10 @@ public class ChainProjectile : Projectile
                     closestDistance = distance;
                     closestEnemy = enemy;
                 }
+                else
+                {
+                    lightningVFX.Stop();
+                }
             }
         }
 
@@ -111,8 +115,13 @@ public class ChainProjectile : Projectile
             VFXEventAttribute eventAttribute = lightningVFX.CreateVFXEventAttribute();
 
             endPos.y = startPos.y;
+            float distance = Vector3.Distance(startPos, endPos);
+            float projectileTime = (distance - hitRange) / speed;
+            float vfxLifetime = Mathf.Max(0.1f, projectileTime + 0.1f);
+
             lightningVFX.SetVector3("StartPosition", startPos);
             lightningVFX.SetVector3("EndPosition", endPos);
+            lightningVFX.SetFloat("LifeTime", vfxLifetime);
 
             lightningVFX.SendEvent("OnPlay", eventAttribute);
         }

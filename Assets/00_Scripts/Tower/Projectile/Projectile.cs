@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     protected float damage;
     protected float criticalChance;
     protected float criticalDamage;
+    protected float hitRange = 0.1f;
 
     virtual public void SetTarget(GameObject target)
     {
@@ -36,7 +37,7 @@ public class Projectile : MonoBehaviour
         Vector3 direction = (target.transform.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, target.transform.position) < 0.7f)
+        if (Vector3.Distance(transform.position, target.transform.position) < hitRange)
             HitTarget();
     }
 
