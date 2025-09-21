@@ -321,8 +321,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 2144.6669921875,
-            "y": -8.666662216186524
+            "x": 1993.9998779296875,
+            "y": -60.000003814697269
         },
         "m_Blocks": [
             {
@@ -341,7 +341,7 @@
         "preventRotation": false
     },
     "m_Path": "Shader Graphs",
-    "m_GraphPrecision": 1,
+    "m_GraphPrecision": 0,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -454,8 +454,8 @@
     "m_ShaderOutputName": "Tiling",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 3.0,
-        "y": 0.10999999940395355
+        "x": 2.5799999237060549,
+        "y": 0.5600000023841858
     },
     "m_DefaultValue": {
         "x": 1.0,
@@ -1360,10 +1360,10 @@
         "m_Expanded": false,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -104.66665649414063,
-            "y": -674.6666259765625,
-            "width": 127.99999237060547,
-            "height": 174.66665649414063
+            "x": -135.99998474121095,
+            "y": -627.9999389648438,
+            "width": 78.99998474121094,
+            "height": 76.0
         }
     },
     "m_Slots": [
@@ -1918,10 +1918,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 271.3333740234375,
-            "y": -757.3333129882813,
-            "width": 158.0,
-            "height": 144.0
+            "x": 250.9999542236328,
+            "y": -769.9999389648438,
+            "width": 154.00001525878907,
+            "height": 141.99993896484376
         }
     },
     "m_Slots": [
@@ -2046,10 +2046,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -120.0,
-            "y": -733.3333129882813,
-            "width": 143.33334350585938,
-            "height": 36.0
+            "x": -168.99998474121095,
+            "y": -720.9999389648438,
+            "width": 139.99998474121095,
+            "height": 34.0
         }
     },
     "m_Slots": [

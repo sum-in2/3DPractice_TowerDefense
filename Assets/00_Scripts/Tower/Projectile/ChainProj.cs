@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.VFX;
+using UnityEngine.PlayerLoop;
 
 public class ChainProjectile : Projectile
 {
@@ -23,6 +24,18 @@ public class ChainProjectile : Projectile
             lightningVFX.Stop();
             lightningVFX.Reinit();
         }
+    }
+
+    void OnDisable()
+    {
+        if (lightningVFX != null)
+            lightningVFX.Stop();
+    }
+
+    public override void SetTarget(GameObject target)
+    {
+        base.SetTarget(target);
+        PlayLightningEffect(this.transform.position, target.transform.position);
     }
 
     protected override void HitTarget()
@@ -97,11 +110,11 @@ public class ChainProjectile : Projectile
         {
             VFXEventAttribute eventAttribute = lightningVFX.CreateVFXEventAttribute();
 
-            eventAttribute.SetVector3("StartPosition", startPos);
-            eventAttribute.SetVector3("EndPosition", endPos);
+            endPos.y = startPos.y;
+            lightningVFX.SetVector3("StartPosition", startPos);
+            lightningVFX.SetVector3("EndPosition", endPos);
 
             lightningVFX.SendEvent("OnPlay", eventAttribute);
-            Debug.Log("onplay");
         }
     }
 }

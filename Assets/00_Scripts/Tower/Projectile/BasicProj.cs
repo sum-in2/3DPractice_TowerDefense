@@ -8,7 +8,7 @@ public class BasicProj : Projectile
         if (enemy != null)
         {
             float finalDamage = damage;
-            if (Random.value < criticalChance * 0.01f)
+            if (Random.value < criticalChance)
                 finalDamage *= criticalDamage;
             enemy.TakeDamage(finalDamage);
         }

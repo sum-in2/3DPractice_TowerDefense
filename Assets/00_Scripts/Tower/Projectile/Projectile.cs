@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
     protected float criticalChance;
     protected float criticalDamage;
 
-    public void SetTarget(GameObject target)
+    virtual public void SetTarget(GameObject target)
     {
         this.target = target;
         Vector3 direction = (target.transform.position - transform.position).normalized;
@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
         this.criticalDamage = attackStats.critDamage;
     }
 
-    void Update()
+    private void Update()
     {
         if (!target.activeSelf)
         {
