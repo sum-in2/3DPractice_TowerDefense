@@ -64,7 +64,6 @@ public class Enemy : MonoBehaviour
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
-            return;
         }
 
         flashCoroutine = StartCoroutine(DamageFlashCoroutine());

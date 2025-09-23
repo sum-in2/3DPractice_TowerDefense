@@ -86,7 +86,7 @@ public class ChainProj : Projectile
         foreach (Collider col in colliders)
         {
             Enemy enemy = col.GetComponent<Enemy>();
-            if (enemy != null && !hitEnemies.Contains(enemy))
+            if (enemy != null && enemy.gameObject.activeInHierarchy && !hitEnemies.Contains(enemy))
             {
                 float distance = Vector3.Distance(currentPosition, enemy.transform.position);
                 if (distance < closestDistance)
@@ -122,7 +122,7 @@ public class ChainProj : Projectile
         {
             lightningVFX.SetVector3("StartPosition", startPos);
             lightningVFX.SetVector3("EndPosition", endPos);
-            lightningVFX.SetFloat("LifeTime", 0.5f);
+            lightningVFX.SetFloat("LifeTime", 1.5f);
 
             lightningVFX.Play();
         }

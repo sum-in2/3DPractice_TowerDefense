@@ -122,10 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed1235d63b3e8941a8fad59451bc291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChainCount: 3
+  maxChainCount: 30
   chainRange: 5
   chainDamageReduction: 0.8
   lightningVFX: {fileID: 8391511367458749057}
+  chainDelay: 0.1
 --- !u!2083052967 &8391511367458749057
 VisualEffect:
   m_ObjectHideFlags: 0
