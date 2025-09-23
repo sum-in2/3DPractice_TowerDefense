@@ -16,7 +16,7 @@ MonoBehaviour:
   attackStats:
     attackPower: 2
     range: 4
-    attackSpeed: 3
+    attackSpeed: 0.8
     ignoreDefense: 0
     critChance: 0.3
     critDamage: 1.3

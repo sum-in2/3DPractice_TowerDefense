@@ -1,15 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.VFX;
-using UnityEngine.PlayerLoop;
+using System.Collections;
 
-public class ChainProjectile : Projectile
+public class ChainProj : Projectile
 {
     public int maxChainCount = 3;
     public float chainRange = 5f;
     public float chainDamageReduction = 0.8f;
-
     public VisualEffect lightningVFX;
+    public float chainDelay = 0.1f;
 
     private int currentChainCount = 0;
     private List<Enemy> hitEnemies = new List<Enemy>();
@@ -34,8 +34,19 @@ public class ChainProjectile : Projectile
 
     public override void SetTarget(GameObject target)
     {
-        base.SetTarget(target);
-        PlayLightningEffect(this.transform.position, target.transform.position);
+        this.target = target;
+        Vector3 temp = new Vector3(transform.position.x, target.transform.position.y, transform.position.z);
+        PlayLightningEffect(temp, target.transform.position);
+
+        DebugEx.Log(temp + " / " + target.transform.position);
+        transform.position = target.transform.position;
+        HitTarget();
+    }
+
+    protected override void Update()
+    {
+        if (target != null && !target.activeSelf)
+            ObjectPoolManager.Instance.ReturnObject(this);
     }
 
     protected override void HitTarget()
@@ -57,7 +68,7 @@ public class ChainProjectile : Projectile
                 Enemy nextTarget = FindNextTarget(enemy.transform.position);
                 if (nextTarget != null)
                 {
-                    ChainToNextTarget(nextTarget);
+                    StartCoroutine(ChainToNextTargetWithDelay(nextTarget));
                     return;
                 }
             }
@@ -83,47 +94,37 @@ public class ChainProjectile : Projectile
                     closestDistance = distance;
                     closestEnemy = enemy;
                 }
-                else
-                {
-                    lightningVFX.Stop();
-                }
             }
         }
 
         return closestEnemy;
     }
 
-    private void ChainToNextTarget(Enemy nextTarget)
+    private IEnumerator ChainToNextTargetWithDelay(Enemy nextTarget)
     {
-        currentChainCount++;
-
-        Vector3 currentPos = transform.position;
+        Vector3 currentPos = target.transform.position;
         Vector3 endPos = nextTarget.transform.position;
 
         PlayLightningEffect(currentPos, endPos);
 
+        yield return new WaitForSeconds(chainDelay);
+
+        currentChainCount++;
         target = nextTarget.gameObject;
 
-        Vector3 direction = (target.transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.LookRotation(direction);
+        transform.position = nextTarget.transform.position;
+        HitTarget();
     }
 
     private void PlayLightningEffect(Vector3 startPos, Vector3 endPos)
     {
         if (lightningVFX != null)
         {
-            VFXEventAttribute eventAttribute = lightningVFX.CreateVFXEventAttribute();
-
-            endPos.y = startPos.y;
-            float distance = Vector3.Distance(startPos, endPos);
-            float projectileTime = (distance - hitRange) / speed;
-            float vfxLifetime = Mathf.Max(0.1f, projectileTime + 0.1f);
-
             lightningVFX.SetVector3("StartPosition", startPos);
             lightningVFX.SetVector3("EndPosition", endPos);
-            lightningVFX.SetFloat("LifeTime", vfxLifetime);
+            lightningVFX.SetFloat("LifeTime", 0.5f);
 
-            lightningVFX.SendEvent("OnPlay", eventAttribute);
+            lightningVFX.Play();
         }
     }
 }

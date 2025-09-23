@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
         this.criticalDamage = attackStats.critDamage;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!target.activeSelf)
         {
