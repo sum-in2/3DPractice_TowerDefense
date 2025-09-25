@@ -18,8 +18,10 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         if (pools.ContainsKey(prefab))
             return;
 
+        parent = transform;
         if (prefab is Projectile)
             parent = projectiles.transform;
+
 
         GameObject newParent = new GameObject(prefab.name);
         newParent.transform.parent = parent;

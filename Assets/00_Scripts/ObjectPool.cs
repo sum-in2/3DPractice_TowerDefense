@@ -14,6 +14,7 @@ public class ObjectPool<T> where T : Component
         for (int i = 0; i < initialSize; i++)
         {
             T obj = GameObject.Instantiate(prefab, parent);
+            obj.name = prefab.name + i;
             obj.gameObject.SetActive(false);
             objects.Enqueue(obj);
         }

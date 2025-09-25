@@ -8,8 +8,9 @@ public class ChainProj : Projectile
     public int maxChainCount = 3;
     public float chainRange = 5f;
     public float chainDamageReduction = 0.8f;
-    public VisualEffect lightningVFX;
     public float chainDelay = 0.1f;
+
+    public ChainVFXEffect vfxPrefab;
 
     private int currentChainCount = 0;
     private List<Enemy> hitEnemies = new List<Enemy>();
@@ -18,35 +19,22 @@ public class ChainProj : Projectile
     {
         currentChainCount = 0;
         hitEnemies.Clear();
-
-        if (lightningVFX != null)
-        {
-            lightningVFX.Stop();
-            lightningVFX.Reinit();
-        }
-    }
-
-    void OnDisable()
-    {
-        if (lightningVFX != null)
-            lightningVFX.Stop();
     }
 
     public override void SetTarget(GameObject target)
     {
         this.target = target;
         Vector3 temp = new Vector3(transform.position.x, target.transform.position.y, transform.position.z);
+
         PlayLightningEffect(temp, target.transform.position);
 
-        DebugEx.Log(temp + " / " + target.transform.position);
         transform.position = target.transform.position;
         HitTarget();
     }
 
     protected override void Update()
     {
-        if (target != null && !target.activeSelf)
-            ObjectPoolManager.Instance.ReturnObject(this);
+
     }
 
     protected override void HitTarget()
@@ -102,6 +90,7 @@ public class ChainProj : Projectile
 
     private IEnumerator ChainToNextTargetWithDelay(Enemy nextTarget)
     {
+
         Vector3 currentPos = target.transform.position;
         Vector3 endPos = nextTarget.transform.position;
 
@@ -118,13 +107,12 @@ public class ChainProj : Projectile
 
     private void PlayLightningEffect(Vector3 startPos, Vector3 endPos)
     {
-        if (lightningVFX != null)
+        if (vfxPrefab != null)
         {
-            lightningVFX.SetVector3("StartPosition", startPos);
-            lightningVFX.SetVector3("EndPosition", endPos);
-            lightningVFX.SetFloat("LifeTime", 1.5f);
+            var vfxEffect = ObjectPoolManager.Instance.GetObject(vfxPrefab);
 
-            lightningVFX.Play();
+            vfxEffect.transform.position = startPos;
+            vfxEffect.PlayEffect(startPos, endPos);
         }
     }
 }

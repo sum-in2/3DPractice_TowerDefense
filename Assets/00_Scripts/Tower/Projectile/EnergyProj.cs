@@ -17,14 +17,7 @@ public class EnergyProj : Projectile
             SplashDamage(enemy, finalDamage * 0.7f);
         }
 
-        // TODO : 스플래시 이펙트
         ObjectPoolManager.Instance.ReturnObject(this as Projectile);
-    }
-    void OnDrawGizmos()
-    {
-        //TODO : 테스트 끝나면 없앨 것
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(target.transform.position, splashRadius);
     }
 
     void SplashDamage(Enemy targetEnemy, float finalDamage)
