@@ -14,7 +14,7 @@ public class ChainVFXEffect : MonoBehaviour
             vfx = GetComponent<VisualEffect>();
     }
 
-    public void PlayEffect(Vector3 startPos, Vector3 endPos, float lifeTime = 1.5f)
+    public void PlayEffect(Vector3 startPos, Vector3 endPos, float lifeTime = 1f)
     {
         if (vfx == null) return;
         if (returnCoroutine != null)

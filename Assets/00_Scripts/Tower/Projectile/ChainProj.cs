@@ -8,12 +8,13 @@ public class ChainProj : Projectile
     public int maxChainCount = 3;
     public float chainRange = 5f;
     public float chainDamageReduction = 0.8f;
-    public float chainDelay = 0.1f;
+    public float chainDelay = 0.01f;
 
     public ChainVFXEffect vfxPrefab;
 
     private int currentChainCount = 0;
     private List<Enemy> hitEnemies = new List<Enemy>();
+    private Vector3 fixedNextTargetPos;
 
     void OnEnable()
     {
@@ -24,9 +25,8 @@ public class ChainProj : Projectile
     public override void SetTarget(GameObject target)
     {
         this.target = target;
-        Vector3 temp = new Vector3(transform.position.x, target.transform.position.y, transform.position.z);
 
-        PlayLightningEffect(temp, target.transform.position);
+        PlayLightningEffect(transform.position, target.transform.position);
 
         transform.position = target.transform.position;
         HitTarget();
@@ -90,18 +90,16 @@ public class ChainProj : Projectile
 
     private IEnumerator ChainToNextTargetWithDelay(Enemy nextTarget)
     {
+        Vector3 currentPos = transform.position;
+        Vector3 fixedNextPos = nextTarget.transform.position;
 
-        Vector3 currentPos = target.transform.position;
-        Vector3 endPos = nextTarget.transform.position;
-
-        PlayLightningEffect(currentPos, endPos);
+        PlayLightningEffect(currentPos, fixedNextPos);
 
         yield return new WaitForSeconds(chainDelay);
 
         currentChainCount++;
         target = nextTarget.gameObject;
-
-        transform.position = nextTarget.transform.position;
+        transform.position = fixedNextPos;
         HitTarget();
     }
 
@@ -111,7 +109,7 @@ public class ChainProj : Projectile
         {
             var vfxEffect = ObjectPoolManager.Instance.GetObject(vfxPrefab);
 
-            vfxEffect.transform.position = startPos;
+            vfxEffect.transform.position = Vector3.zero;
             vfxEffect.PlayEffect(startPos, endPos);
         }
     }

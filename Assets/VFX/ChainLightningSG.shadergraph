@@ -110,6 +110,9 @@
         },
         {
             "m_Id": "f8c5f2a8a0d14d499f693f93cdd51d1b"
+        },
+        {
+            "m_Id": "f53f932725a84332a8a8a5bbdea63255"
         }
     ],
     "m_GroupDatas": [],
@@ -321,6 +324,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "6c64afee397446eeba53e01d1fd5be95"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "f53f932725a84332a8a8a5bbdea63255"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "867f57c67aac4952bc6bc0564ffbeb94"
                 },
                 "m_SlotId": 0
             }
@@ -1802,6 +1819,31 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "960f271ba62342ea9a2bf6547dc2844b",
+    "m_Id": 0,
+    "m_DisplayName": "HDR",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.UVMaterialSlot",
     "m_ObjectId": "98f825728ecd4be98aee1c98ee89a61d",
     "m_Id": 0,
@@ -2546,6 +2588,42 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.Metallic"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "f53f932725a84332a8a8a5bbdea63255",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 1815.4774169921875,
+            "y": 167.5612335205078,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "960f271ba62342ea9a2bf6547dc2844b"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "43647fba8ccf47c1bf1b03758ac68605"
+    }
 }
 
 {
