@@ -20,11 +20,10 @@ public class ChainVFXEffect : MonoBehaviour
         if (returnCoroutine != null)
             StopCoroutine(returnCoroutine);
 
-        vfx.SetVector3("StartPosition", startPos);
-        vfx.SetVector3("EndPosition", endPos);
-        vfx.SetFloat("LifeTime", lifeTime);
+        vfx.SetVector3("StartPos", startPos);
+        vfx.SetVector3("EndPos", endPos);
 
-        vfx.SendEvent("OnPlay");
+        vfx.Play();
 
         returnCoroutine = StartCoroutine(AutoReturn());
     }

@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed1235d63b3e8941a8fad59451bc291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChainCount: 2
+  maxChainCount: 30
   chainRange: 5
   chainDamageReduction: 0.8
   chainDelay: 0.1
