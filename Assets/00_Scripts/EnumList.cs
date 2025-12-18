@@ -26,3 +26,10 @@ public enum StateType
     TowerSelect,
     TowerSpotSelect,
 }
+
+public enum StageState
+{
+    Idle,
+    Playing,
+    Completed,
+}

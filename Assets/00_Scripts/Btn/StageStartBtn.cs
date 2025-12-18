@@ -7,6 +7,6 @@ public class StageStartBtn : MonoBehaviour
 
     public void OnClickStageBtn()
     {
-        GameManager.Instance.StartStage(stageLevel);
+        GameManager.Instance.NextStage();
     }
 }

@@ -24,6 +24,9 @@ public class EnemySpawner : MonoBehaviour
     {
     }
 
+    /// <summary>
+    /// 적 스폰 코루틴이 포함되어 있는 메서드
+    /// </summary>
     public void SpawnEnemies(string enemyName, float spawnInterval = 1f, int enemyCount = 20)
     {
         if (spawnCoroutine != null)

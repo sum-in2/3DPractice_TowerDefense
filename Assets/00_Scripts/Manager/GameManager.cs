@@ -1,19 +1,42 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 public class GameManager : Singleton<GameManager>
 {
-    private StageManager stageManager;
+    [SerializeField] private StageManager stageManager;
+    [field: SerializeField] private StageData stageData;
+    [SerializeField] private GameState gameState;
+
+    public int MaxStageLevel => stageData.StageCount;
+    public int StageLevel => gameState.StageLevel;
+
+    public Action OnNextStage;
 
     protected override void Awake()
     {
         base.Awake();
-        stageManager = StageManager.Instance;
+        OnNextStage += NextStage;
     }
 
-    public void StartStage(int stageLevel)
+    protected override void OnDestroy()
     {
-        stageManager.StartStage(stageLevel);
+        base.OnDestroy();
+        OnNextStage -= NextStage;
     }
+
+    public void NextStage()
+    {
+        if (StageLevel >= MaxStageLevel)
+        {
+            Debug.Log("최종 스테이지 완료");
+            return;
+        }
+
+        gameState.StageLevel++;
+        stageManager.StartStage();
+    }
+
+    public StageData GetStageData() => stageData;
 }

@@ -4,35 +4,41 @@ using System.Collections;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class StageManager : Singleton<StageManager>
+public class StageManager : MonoBehaviour
 {
-    Dictionary<int, String> levelMonsterDict = new Dictionary<int, string>();
     [SerializeField] EnemySpawner enemySpawner;
+
+    private StageState state = StageState.Idle;
     private Coroutine stageCoroutine;
+    private StageData stageData => GameManager.Instance.GetStageData();
 
-    [SerializeField] int MaxStageLevel = 4;
-    private int StageLevel;
+    public bool canStartStage => state == StageState.Idle;
 
-    protected override void Awake()
+    public void StartStage(float spawnInterval = 1f, int enemyCount = 20)
     {
-        base.Awake();
-        levelMonsterDict[1] = "TestMonster" + 1;
-        levelMonsterDict[2] = "TestMonster" + 2;
-        levelMonsterDict[3] = "TestMonster" + 3;
-        levelMonsterDict[4] = "TestMonster" + 4;
-    }
+        int currentLevel = GameManager.Instance.StageLevel;
 
-    public void StartStage(int stageLevel = 1, float spawnInterval = 0.1f, int enemyCount = 20)
-    {
-        if (stageCoroutine != null)
+        if (!stageData.IsValidLevel(currentLevel))
+        {
+            Debug.LogWarning($"유효하지 않은 스테이지 레벨: {currentLevel}");
+            return;
+        }
+
+        if (!canStartStage)
         {
             Debug.LogWarning("스테이지가 진행 중 입니다");
             return;
         }
 
-        enemySpawner.SpawnEnemies(levelMonsterDict[stageLevel], 1f, 20);
-        stageCoroutine = StartCoroutine(StageCoroutine(spawnInterval * enemyCount + 10f));
-        this.StageLevel = stageLevel;
+        state = StageState.Playing;
+
+        StageInfo stageInfo = stageData.GetStageInfo(currentLevel);
+        enemySpawner.SpawnEnemies(
+            stageInfo.monsterName,
+            stageInfo.spawnInterval,
+            stageInfo.enemyCount
+        );
+        stageCoroutine = StartCoroutine(StageCoroutine(stageInfo.spawnInterval * stageInfo.enemyCount + 10f));
     }
 
     private IEnumerator StageCoroutine(float StageTimer)
@@ -43,12 +49,13 @@ public class StageManager : Singleton<StageManager>
 
     void StopStage()
     {
-        stageCoroutine = null;
-        Debug.Log(StageLevel + " Stage 종료");
+        if (stageCoroutine != null)
+        {
+            StopCoroutine(stageCoroutine);
+            stageCoroutine = null;
+        }
 
-        if (StageLevel < MaxStageLevel)
-            StartStage(++StageLevel);
-        else
-            Debug.Log("모든 스테이지 클리어");
+        state = StageState.Idle;
+        Debug.Log($"Stage {GameManager.Instance.StageLevel} 완료");
     }
 }
