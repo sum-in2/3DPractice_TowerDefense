@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    private float maxHP = 100f;
-    private float HP = 100f;
+    private float maxHP;
+    [SerializeField] private float HP = 100f;
+    private int baseReward;
 
     [SerializeField] private float damageFlashDuration = 0.3f;
     [SerializeField] private Color damageColor = Color.red;
@@ -22,6 +23,14 @@ public class Enemy : MonoBehaviour
             originalMaterial = enemyRenderer.material;
             originalColor = originalMaterial.color;
         }
+    }
+
+    public void Setup(int reward, float maxHp)
+    {
+        baseReward = reward;
+        this.maxHP = maxHp;
+        HP = maxHp;
+        ResetColor();
     }
 
     public void TakeDamage(float damage)
@@ -42,6 +51,7 @@ public class Enemy : MonoBehaviour
             ResetColor();
         }
 
+        GameManager.Instance.AddGoldOnEnemyDie(baseReward); // 보상 지급
         ObjectPoolManager.Instance.ReturnObject(this);
     }
 

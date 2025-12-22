@@ -1,13 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "StageData", menuName = "TowerDefense/StageData")]
-public class StageData : ScriptableObject
+[CreateAssetMenu(fileName = "StageEnemyData", menuName = "TowerDefense/StageEnemyData")]
+public class StageEnemyData : ScriptableObject
 {
     [SerializeField] private List<StageInfo> stages = new();
 
-    public string GetMonsterName(int level) => stages[level - 1].monsterName;
-    public StageInfo GetStageInfo(int level) => stages[level];
     public int StageCount => stages.Count;
     public bool IsValidLevel(int level) => 0 < level && level <= StageCount;
+
+    public StageInfo GetStageInfo(int level)
+    {
+        int index = Mathf.Clamp(level - 1, 0, stages.Count - 1);
+        return stages[index];
+    }
 }

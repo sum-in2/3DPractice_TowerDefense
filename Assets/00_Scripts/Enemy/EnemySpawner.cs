@@ -27,29 +27,30 @@ public class EnemySpawner : MonoBehaviour
     /// <summary>
     /// 적 스폰 코루틴이 포함되어 있는 메서드
     /// </summary>
-    public void SpawnEnemies(string enemyName, float spawnInterval = 1f, int enemyCount = 20)
+    public void SpawnEnemies(StageInfo stageInfo)
     {
         if (spawnCoroutine != null)
             StopCoroutine(spawnCoroutine);
 
-        spawnCoroutine = StartCoroutine(SpawnRoutine(enemyName, spawnInterval, enemyCount));
+        spawnCoroutine = StartCoroutine(SpawnRoutine(stageInfo));
     }
 
-    private IEnumerator SpawnRoutine(string enemyName, float spawnInterval, int enemyCount)
+    private IEnumerator SpawnRoutine(StageInfo stageInfo)
     {
-        for (int i = 0; i < enemyCount; i++)
+        for (int i = 0; i < stageInfo.enemyCount; i++)
         {
-            if (enemyPrefabDict.TryGetValue(enemyName, out Enemy prefab))
+            if (enemyPrefabDict.TryGetValue(stageInfo.monsterName, out Enemy prefab))
             {
                 Enemy enemy = ObjectPoolManager.Instance.GetObject(prefab);
                 enemy.transform.position = GetSpawnPosition().position;
+                enemy.Setup(stageInfo.baseReward, stageInfo.maxHP);
                 enemy.gameObject.SetActive(true);
             }
             else
             {
-                Debug.LogWarning($"적 프리팹 없음: {enemyName}");
+                Debug.LogWarning($"적 프리팹 없음: {stageInfo.monsterName}");
             }
-            yield return new WaitForSeconds(spawnInterval);
+            yield return new WaitForSeconds(stageInfo.spawnInterval);
         }
         spawnCoroutine = null;
     }

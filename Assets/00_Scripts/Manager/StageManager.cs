@@ -10,7 +10,7 @@ public class StageManager : MonoBehaviour
 
     private StageState state = StageState.Idle;
     private Coroutine stageCoroutine;
-    private StageData stageData => GameManager.Instance.GetStageData();
+    private StageEnemyData StageEnemyData => GameManager.Instance.GetStageEnemyData();
 
     public bool canStartStage => state == StageState.Idle;
 
@@ -18,7 +18,7 @@ public class StageManager : MonoBehaviour
     {
         int currentLevel = GameManager.Instance.StageLevel;
 
-        if (!stageData.IsValidLevel(currentLevel))
+        if (!StageEnemyData.IsValidLevel(currentLevel))
         {
             Debug.LogWarning($"유효하지 않은 스테이지 레벨: {currentLevel}");
             return;
@@ -32,12 +32,8 @@ public class StageManager : MonoBehaviour
 
         state = StageState.Playing;
 
-        StageInfo stageInfo = stageData.GetStageInfo(currentLevel);
-        enemySpawner.SpawnEnemies(
-            stageInfo.monsterName,
-            stageInfo.spawnInterval,
-            stageInfo.enemyCount
-        );
+        StageInfo stageInfo = StageEnemyData.GetStageInfo(currentLevel);
+        enemySpawner.SpawnEnemies(stageInfo);
         stageCoroutine = StartCoroutine(StageCoroutine(stageInfo.spawnInterval * stageInfo.enemyCount + 10f));
     }
 

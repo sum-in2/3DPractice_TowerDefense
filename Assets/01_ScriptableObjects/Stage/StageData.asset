@@ -14,14 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageData
   stages:
   - monsterName: TestMonster1
+    maxHP: 50
+    baseReward: 3
     spawnInterval: 1
     enemyCount: 20
   - monsterName: TestMonster2
+    maxHP: 55
+    baseReward: 5
     spawnInterval: 1
     enemyCount: 20
   - monsterName: TestMonster3
+    maxHP: 60
+    baseReward: 7
     spawnInterval: 1
     enemyCount: 20
   - monsterName: TestMonster4
+    maxHP: 65
+    baseReward: 10
     spawnInterval: 1
     enemyCount: 20
