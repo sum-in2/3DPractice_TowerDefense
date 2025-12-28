@@ -5,7 +5,6 @@ public class UpgradeBtn : MonoBehaviour
 {
     public UpgradeType upgradeType;
 
-    // TODO:  코스트는 언젠가 사용할 듯 싶어서 넣어놓긴 했는데 실질 의미는 아직 없음
     public int upgradCost = 100;
     public void OnClickUpgradeBtn()
     {
@@ -39,12 +38,7 @@ public class UpgradeBtn : MonoBehaviour
             return;
         }
 
-        ApplyGlobalUpgrade(targetUpgrade);
-        // TODO: 비용차감메서드?
-    }
-
-    void ApplyGlobalUpgrade(Upgrade targetUpgrade)
-    {
         targetUpgrade.UpgradeLevelAdder();
+        // TODO: 비용차감메서드?
     }
 }

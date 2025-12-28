@@ -3,7 +3,13 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SOManager : Singleton<SOManager>
+public interface ITowerUpgradeNotifier
+{
+    event System.Action<TowerType> OnTowerUpgraded;
+    void NotifyTowerUpgraded(TowerType towerType);
+}
+
+public class SOManager : Singleton<SOManager>, ITowerUpgradeNotifier
 {
     [SerializeField] List<Tech> towerTech;
     [SerializeField] List<Upgrade> towerUpgrade;
@@ -16,17 +22,24 @@ public class SOManager : Singleton<SOManager>
     private Dictionary<TowerType, AttackStats> defaultStatDict;
     private Dictionary<TowerType, AttackStats> runtimeStatDict;
 
-    public System.Action<TowerType> OnTowerUpgraded;
+    public event System.Action<TowerType> OnTowerUpgraded;
 
     protected override void Awake()
     {
         base.Awake();
 
+        InitializeDictionaries();
+        InitializeLockStates();
+        UpgradeSOLevelInit();
+        CopyAllDefaultToRuntime();
+    }
+
+    void InitializeDictionaries()
+    {
         upgradeSODict = new Dictionary<TowerType, List<Upgrade>>();
         defaultStatDict = towerDefaultStats.ToDictionary(t => t.towerType, t => t.attackStats);
         runtimeStatDict = towerRunTimeStats.ToDictionary(t => t.towerType, t => t.attackStats);
         towerTechDict = towerTech.ToDictionary(t => t.techType);
-        lockStates = new Dictionary<TowerType, bool>();
 
         foreach (Upgrade upgrade in towerUpgrade)
         {
@@ -34,17 +47,18 @@ public class SOManager : Singleton<SOManager>
                 upgradeSODict[upgrade.towerType] = new List<Upgrade>();
             upgradeSODict[upgrade.towerType].Add(upgrade);
         }
+    }
 
+    void InitializeLockStates()
+    {
+        lockStates = new Dictionary<TowerType, bool>();
         foreach (var pair in towerTechDict)
         {
             lockStates[pair.Key] = (pair.Value.level == 0);
         }
-
-        UpgradeSOLevelInit();
-        CopyAllDefaultToRuntime();
     }
 
-    public void CopyAllDefaultToRuntime()
+    void CopyAllDefaultToRuntime()
     {
         foreach (KeyValuePair<TowerType, AttackStats> kvp in defaultStatDict)
         {
@@ -107,23 +121,18 @@ public class SOManager : Singleton<SOManager>
         return null;
     }
 
-    public void ApplyGlobalUpgrade(TowerType towerType, UpgradeType upgradeType, float increaseAmount)
+    #region 업그레이드 적용 메서드
+    public void NotifyTowerUpgraded(TowerType towerType)
     {
-        runtimeStatDict[towerType].UpgradeStat(upgradeType, increaseAmount);
-        RefreshTowersOfType(towerType);
-
         OnTowerUpgraded?.Invoke(towerType);
     }
 
-    private void RefreshTowersOfType(TowerType towerType)
+    public void ApplyGlobalUpgrade(TowerType towerType, UpgradeType upgradeType, float increaseAmount)
     {
-        List<BaseTower> towersOfType = TowerManager.Instance.GetTowersOfType(towerType);
-        foreach (BaseTower tower in towersOfType)
-        {
-            tower.baseAttackStats = new AttackStats(runtimeStatDict[towerType]);
-            tower.RefreshCurrentStats();
-        }
+        runtimeStatDict[towerType].UpgradeStat(upgradeType, increaseAmount);
+        OnTowerUpgraded?.Invoke(towerType);
     }
+    #endregion
 
     public Tech GetTowerTech(TowerType towerType)
     {

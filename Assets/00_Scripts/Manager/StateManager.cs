@@ -27,6 +27,8 @@ public class StateManager : MonoBehaviour
     }
     [SerializeField] private TowerInfoUI towerInfoUI;
 
+    private ITowerUpgradeNotifier towerNotifier;
+
     public void SetState(StateType state)
     {
         CurrentState = state;
@@ -45,7 +47,8 @@ public class StateManager : MonoBehaviour
         TowerBtnHover.OnTowerHover += HandleTowerHover;
         TowerBtnHover.OnTowerHoverExit += HandleTowerHoverExit;
 
-        SOManager.Instance.OnTowerUpgraded += HandleTowerUpgraded;
+        towerNotifier = SOManager.Instance as ITowerUpgradeNotifier;
+        towerNotifier.OnTowerUpgraded += HandleTowerUpgraded;
     }
 
     private void OnDisable()
@@ -53,7 +56,8 @@ public class StateManager : MonoBehaviour
         TowerBtnHover.OnTowerHover -= HandleTowerHover;
         TowerBtnHover.OnTowerHoverExit -= HandleTowerHoverExit;
 
-        SOManager.Instance.OnTowerUpgraded -= HandleTowerUpgraded;
+        if (towerNotifier != null)
+            towerNotifier.OnTowerUpgraded -= HandleTowerUpgraded;
     }
 
     private void HandleTowerUpgraded(TowerType towerType)

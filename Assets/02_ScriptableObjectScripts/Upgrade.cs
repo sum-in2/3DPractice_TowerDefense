@@ -15,11 +15,6 @@ public class Upgrade : ScriptableObject
     public void UpgradeLevelAdder()
     {
         level++;
-        TowerManager.Instance.UpgradeTowers(towerType, upgradeType, increaseAmount);
-    }
-
-    public float GetUpgradeStat()
-    {
-        return increaseAmount * level;
+        SOManager.Instance.ApplyGlobalUpgrade(towerType, upgradeType, increaseAmount);
     }
 }

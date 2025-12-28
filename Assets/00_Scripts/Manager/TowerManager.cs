@@ -5,16 +5,31 @@ using UnityEngine;
 public class TowerManager : Singleton<TowerManager>
 {
     private List<BaseTower> towerList = new List<BaseTower>();
+    private ITowerUpgradeNotifier towerNotifier;
+
+    void InitializeNotifier()
+    {
+        if (towerNotifier == null)
+            towerNotifier = SOManager.Instance as ITowerUpgradeNotifier;
+    }
+
+
+    void OnEnable()
+    {
+        InitializeNotifier();
+        towerNotifier.OnTowerUpgraded += RefreshTowersOfType;
+    }
+
+    void OnDisable()
+    {
+        if (towerNotifier != null)
+            towerNotifier.OnTowerUpgraded -= RefreshTowersOfType;
+    }
 
     public void RegisterTower(BaseTower tower)
     {
         if (!towerList.Contains(tower))
             towerList.Add(tower);
-    }
-
-    public void UpgradeTowers(TowerType towerType, UpgradeType upgradeType, float increaseAmount)
-    {
-        SOManager.Instance.ApplyGlobalUpgrade(towerType, upgradeType, increaseAmount);
     }
 
     public List<BaseTower> GetTowersOfType(TowerType towerType)
@@ -26,5 +41,16 @@ public class TowerManager : Singleton<TowerManager>
     {
         if (towerList.Contains(tower))
             towerList.Remove(tower);
+    }
+
+    private void RefreshTowersOfType(TowerType towerType)
+    {
+        InitializeNotifier();
+        List<BaseTower> towersOfType = GetTowersOfType(towerType);
+        foreach (BaseTower tower in towersOfType)
+        {
+            tower.baseAttackStats = new AttackStats(SOManager.Instance.GetTowerRuntimeStat(towerType));
+            tower.RefreshCurrentStats();
+        }
     }
 }
