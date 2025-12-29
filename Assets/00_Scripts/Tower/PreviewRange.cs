@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class PreviewRange : MonoBehaviour
 {
+    private ITowerUpgradeNotifier notifier;
     private LineRenderer lineRenderer;
     private int segments = 100;
 
@@ -13,6 +14,29 @@ public class PreviewRange : MonoBehaviour
         lineRenderer.useWorldSpace = false;
         lineRenderer.startWidth = 0.1f;
         lineRenderer.endWidth = 0.1f;
+    }
+
+    void Start()
+    {
+        notifier = SOManager.Instance as ITowerUpgradeNotifier;
+        notifier.OnTowerUpgraded += HandleTowerUpgraded;
+    }
+
+    private void OnDestroy()
+    {
+        notifier.OnTowerUpgraded -= HandleTowerUpgraded;
+    }
+
+    private void HandleTowerUpgraded(TowerType towerType)
+    {
+        BaseTower obj = ClickManager.Instance.nowClickObject as BaseTower;
+        AttackStats attackStat = SOManager.Instance.GetTowerRuntimeStat(towerType);
+
+        if (obj == gameObject.GetComponentInParent<BaseTower>())
+        {
+            Debug.Log("PreviewRange: 타워 업그레이드 감지, 사거리 갱신");
+            SetRangePreview(attackStat.range);
+        }
     }
 
     public void SetRangePreview(float range)
