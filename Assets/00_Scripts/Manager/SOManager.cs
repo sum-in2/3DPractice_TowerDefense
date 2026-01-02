@@ -2,13 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-
-public interface ITowerUpgradeNotifier
-{
-    event System.Action<TowerType> OnTowerUpgraded;
-    void NotifyTowerUpgraded(TowerType towerType);
-}
-
 public class SOManager : Singleton<SOManager>, ITowerUpgradeNotifier
 {
     [SerializeField] List<Tech> towerTech;
