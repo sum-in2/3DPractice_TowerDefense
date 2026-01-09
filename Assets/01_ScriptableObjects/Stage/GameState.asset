@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e51be7d5006a6a409800d7dfacca3ac, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: Assembly-CSharp::GameState
-  <StageLevel>k__BackingField: 2
+  <StageLevel>k__BackingField: 1
+  <Level>k__BackingField: 1
+  <currentEXP>k__BackingField: 0
   <Gold>k__BackingField: 500
   <Lives>k__BackingField: 20
   <IsPaused>k__BackingField: 0
+  expTable: {fileID: 11400000, guid: 0a90e679b20535743add60f0ea1bf7ba, type: 2}
