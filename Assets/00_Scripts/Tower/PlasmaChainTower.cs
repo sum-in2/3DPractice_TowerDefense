@@ -11,6 +11,6 @@ public class PlasmaChainTower : BaseTower
 
         ChainProj chainProj = projectilePrefab.GetComponent<ChainProj>();
         if (chainProj != null && chainProj.vfxPrefab != null)
-            ObjectPoolManager.Instance.CreatePool(chainProj.vfxPrefab, 30);
+            ObjectPoolManager.Instance.CreatePool(chainProj.vfxPrefab, 60);
     }
 }

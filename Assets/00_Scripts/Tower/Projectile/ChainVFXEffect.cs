@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 public class ChainVFXEffect : MonoBehaviour
 {
     [SerializeField] private VisualEffect vfx;
-    [SerializeField] private float autoReturnDelay = 1.5f;
+    [SerializeField] private float autoReturnDelay = 0.4f;
     Coroutine returnCoroutine;
     void Awake()
     {
