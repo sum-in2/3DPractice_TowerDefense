@@ -34,6 +34,18 @@ public class AttackStats
             case UpgradeType.RangeUp:
                 range += value;
                 break;
+            case UpgradeType.AttackSpeedUp:
+                attackSpeed += value;
+                break;
+            case UpgradeType.CritChanceUp:
+                critChance += value;
+                break;
+            case UpgradeType.CritDamageUp:
+                critDamage += value;
+                break;
+            case UpgradeType.IgnoreDefenseUp:
+                ignoreDefense += value;
+                break;
         }
     }
 }

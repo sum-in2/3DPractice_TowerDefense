@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     private float maxHP;
     [SerializeField] private float HP = 100f;
     private int baseReward;
+    private int baseEXP;
 
     [SerializeField] private float damageFlashDuration = 0.3f;
     [SerializeField] private Color damageColor = Color.red;
@@ -25,9 +26,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Setup(int reward, float maxHp)
+    public void Setup(int reward, int exp, float maxHp)
     {
         baseReward = reward;
+        baseEXP = exp;
         this.maxHP = maxHp;
         HP = maxHp;
         ResetColor();
@@ -51,7 +53,8 @@ public class Enemy : MonoBehaviour
             ResetColor();
         }
 
-        GameManager.Instance.AddGoldOnEnemyDie(baseReward); // 보상 지급
+        PlayerManager.Instance.AddGoldOnEnemyDie(baseReward);
+        PlayerManager.Instance.AddEXP(baseEXP);
         ObjectPoolManager.Instance.ReturnObject(this);
     }
 
@@ -69,7 +72,7 @@ public class Enemy : MonoBehaviour
 
     private void StartDamageFlash()
     {
-        if (enemyRenderer == null) return;
+        if (enemyRenderer == null || !gameObject.activeInHierarchy) return;
 
         if (flashCoroutine != null)
         {

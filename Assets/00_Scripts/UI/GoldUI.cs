@@ -13,15 +13,15 @@ public class GoldUI : MonoBehaviour
 
     void OnEnable()
     {
-        GameManager.Instance.OnGoldChanged += UpdateGoldText;
+        PlayerManager.Instance.OnGoldChanged += UpdateGoldText;
 
-        UpdateGoldText(GameManager.Instance.Gold);
+        UpdateGoldText(PlayerManager.Instance.Gold);
     }
 
     void OnDisable()
     {
-        if (GameManager.Instance != null)
-            GameManager.Instance.OnGoldChanged -= UpdateGoldText;
+        if (PlayerManager.Instance != null)
+            PlayerManager.Instance.OnGoldChanged -= UpdateGoldText;
     }
 
     private void UpdateGoldText(int currentGold)

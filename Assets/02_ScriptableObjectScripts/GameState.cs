@@ -12,5 +12,19 @@ public class GameState : ScriptableObject
 
     [field: SerializeField] private EXPTable expTable;
 
+    [SerializeField] private int defaultGold = 500;
+    [SerializeField] private int defaultLives = 20;
+    [SerializeField] private int defaultStageLevel = 1;
+
     public int maxEXP => expTable ? expTable.GetMaxEXP(Level - 1) : 0;
+
+    public void Reset()
+    {
+        Gold = defaultGold;
+        Lives = defaultLives;
+        StageLevel = defaultStageLevel;
+        Level = 1;
+        currentEXP = 0;
+        IsPaused = false;
+    }
 }

@@ -5,7 +5,6 @@ public class UpgradeBtn : MonoBehaviour
 {
     public UpgradeType upgradeType;
 
-    public int upgradCost = 100;
     public void OnClickUpgradeBtn()
     {
         BaseTower selectedTower = ClickManager.Instance.nowClickObject as BaseTower;
@@ -38,7 +37,7 @@ public class UpgradeBtn : MonoBehaviour
             return;
         }
 
-        targetUpgrade.UpgradeLevelAdder();
-        // TODO: 비용차감메서드?
+        if (!targetUpgrade.TryUpgrade())
+            Debug.Log("골드 부족");
     }
 }

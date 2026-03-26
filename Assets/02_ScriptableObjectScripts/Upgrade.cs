@@ -10,11 +10,16 @@ public class Upgrade : ScriptableObject
     public TowerType towerType;
     public UpgradeType upgradeType;
     public float increaseAmount;
+    public int cost;
     public int level;
 
-    public void UpgradeLevelAdder()
+    public bool TryUpgrade()
     {
+        if (!PlayerManager.Instance.TrySpendGold(cost))
+            return false;
+
         level++;
         SOManager.Instance.ApplyGlobalUpgrade(towerType, upgradeType, increaseAmount);
+        return true;
     }
 }

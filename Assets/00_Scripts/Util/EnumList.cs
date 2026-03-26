@@ -2,6 +2,10 @@ public enum UpgradeType
 {
     DamageUp,
     RangeUp,
+    AttackSpeedUp,
+    CritChanceUp,
+    CritDamageUp,
+    IgnoreDefenseUp,
 }
 
 public enum TowerType

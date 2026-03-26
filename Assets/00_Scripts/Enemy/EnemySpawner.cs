@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 Enemy enemy = ObjectPoolManager.Instance.GetObject(prefab);
                 enemy.transform.position = GetSpawnPosition().position;
-                enemy.Setup(stageInfo.baseReward, stageInfo.maxHP);
+                enemy.Setup(stageInfo.baseReward, stageInfo.baseEXP, stageInfo.maxHP);
                 enemy.gameObject.SetActive(true);
             }
             else

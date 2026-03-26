@@ -46,7 +46,7 @@ public class ChainProj : Projectile
 
             float finalDamage = damage * Mathf.Pow(chainDamageReduction, currentChainCount);
 
-            if (Random.value < criticalChance * 0.01f)
+            if (Random.value < criticalChance)
                 finalDamage *= criticalDamage;
 
             enemy.TakeDamage(finalDamage);
@@ -96,6 +96,12 @@ public class ChainProj : Projectile
         PlayLightningEffect(currentPos, fixedNextPos);
 
         yield return new WaitForSeconds(chainDelay);
+
+        if (!nextTarget.gameObject.activeInHierarchy)
+        {
+            ObjectPoolManager.Instance.ReturnObject(this as Projectile);
+            yield break;
+        }
 
         currentChainCount++;
         target = nextTarget.gameObject;
