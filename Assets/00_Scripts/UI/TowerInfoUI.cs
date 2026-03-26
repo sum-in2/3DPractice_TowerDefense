@@ -85,22 +85,22 @@ public class TowerInfoUI : MonoBehaviour
             towerNameText.text = towerType.ToString();
 
         if (damageText != null)
-            damageText.text = attackStats.attackPower.ToString();
+            damageText.text = attackStats.AttackPower.ToString();
 
         if (rangeText != null)
-            rangeText.text = attackStats.range.ToString("F1");
+            rangeText.text = attackStats.Range.ToString("F1");
 
         if (attackSpeedText != null)
-            attackSpeedText.text = attackStats.attackSpeed.ToString("F1") + "/s";
+            attackSpeedText.text = attackStats.AttackSpeed.ToString("F1") + "/s";
 
         if (ignoreDefText != null)
-            ignoreDefText.text = attackStats.ignoreDefense.ToString();
+            ignoreDefText.text = attackStats.IgnoreDefense.ToString();
 
         if (critChanceText != null)
-            critChanceText.text = (attackStats.critChance * 100f).ToString("F0") + "%";
+            critChanceText.text = (attackStats.CritChance * 100f).ToString("F0") + "%";
 
         if (critDamageText != null)
-            critDamageText.text = attackStats.critDamage.ToString("F1") + "x";
+            critDamageText.text = attackStats.CritDamage.ToString("F1") + "x";
 
         ShowTowerInfo();
     }

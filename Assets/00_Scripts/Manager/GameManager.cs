@@ -34,7 +34,7 @@ public class GameManager : Singleton<GameManager>
 
         // TODO: 스테이지 클리어 보상 처리
 
-        gameState.StageLevel++;
+        gameState.IncrementStageLevel();
         stageManager.StartStage();
     }
 

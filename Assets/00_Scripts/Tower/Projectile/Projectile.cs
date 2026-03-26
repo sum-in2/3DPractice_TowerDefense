@@ -21,9 +21,9 @@ public class Projectile : MonoBehaviour
     public void SetDamage(AttackStats attackStats)
     {
         // TODO : 방어력 관통
-        this.damage = attackStats.attackPower;
-        this.criticalChance = attackStats.critChance;
-        this.criticalDamage = attackStats.critDamage;
+        this.damage = attackStats.AttackPower;
+        this.criticalChance = attackStats.CritChance;
+        this.criticalDamage = attackStats.CritDamage;
     }
 
     protected virtual void Update()

@@ -5,10 +5,10 @@ using Unity.VisualScripting.Dependencies.Sqlite;
 
 public abstract class BaseTower : MonoBehaviour, IClickable
 {
-    public AttackStats baseAttackStats;
-    public AttackStats currentAttackStats;
+    private AttackStats baseAttackStats;
+    public AttackStats currentAttackStats { get; private set; }
 
-    public List<IndividualUpgrade> individualUpgrades = new List<IndividualUpgrade>();
+    private List<IndividualUpgrade> individualUpgrades = new List<IndividualUpgrade>();
     public TowerType towerType;
     public StateType currentState { get; private set; } = StateType.TowerSelect;
 
@@ -37,6 +37,11 @@ public abstract class BaseTower : MonoBehaviour, IClickable
         RefreshCurrentStats();
     }
 
+    public void SetBaseStats(AttackStats stats)
+    {
+        baseAttackStats = stats;
+    }
+
     public void RefreshCurrentStats()
     {
         currentAttackStats = new AttackStats(baseAttackStats);
@@ -47,30 +52,24 @@ public abstract class BaseTower : MonoBehaviour, IClickable
     {
         foreach (IndividualUpgrade upgrade in individualUpgrades)
         {
-            if (upgrade.isApplied)
+            if (upgrade.IsApplied)
             {
-                currentAttackStats.UpgradeStat(upgrade.upgradeType, upgrade.increaseAmount);
+                currentAttackStats.UpgradeStat(upgrade.UpgradeType, upgrade.IncreaseAmount);
             }
         }
     }
 
     public void AddIndividualUpgrade(UpgradeType upgradeType, float increaseAmount, int cost, string upgradeName)
     {
-        IndividualUpgrade newUpgrade = new IndividualUpgrade
-        {
-            upgradeType = upgradeType,
-            increaseAmount = increaseAmount,
-            cost = cost,
-            upgradeName = upgradeName,
-            isApplied = true
-        };
+        IndividualUpgrade newUpgrade = new IndividualUpgrade(upgradeType, increaseAmount, cost, upgradeName);
+        newUpgrade.Apply();
 
         individualUpgrades.Add(newUpgrade);
         RefreshCurrentStats();
 
         if (upgradeType == UpgradeType.RangeUp)
         {
-            previewRangeObject.SetRangeObjectState(currentAttackStats.range, true);
+            previewRangeObject.SetRangeObjectState(currentAttackStats.Range, true);
         }
     }
 
@@ -96,7 +95,7 @@ public abstract class BaseTower : MonoBehaviour, IClickable
             if (HasTarget())
             {
                 attackBehavior?.Attack(this);
-                yield return new WaitForSeconds(1f / currentAttackStats.attackSpeed);
+                yield return new WaitForSeconds(1f / currentAttackStats.AttackSpeed);
             }
             else
             {
@@ -107,7 +106,7 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     private GameObject FindTargetInRange()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, currentAttackStats.range);
+        Collider[] hits = Physics.OverlapSphere(transform.position, currentAttackStats.Range);
         foreach (var hit in hits)
         {
             if (hit.CompareTag("Enemy"))
@@ -124,7 +123,7 @@ public abstract class BaseTower : MonoBehaviour, IClickable
 
     public void OnSelect()
     {
-        previewRangeObject.SetRangeObjectState(currentAttackStats.range, true);
+        previewRangeObject.SetRangeObjectState(currentAttackStats.Range, true);
     }
 
     public void OnDeselect()

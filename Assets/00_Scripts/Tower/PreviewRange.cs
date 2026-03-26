@@ -35,7 +35,7 @@ public class PreviewRange : MonoBehaviour
         if (obj == gameObject.GetComponentInParent<BaseTower>())
         {
             Debug.Log("PreviewRange: 타워 업그레이드 감지, 사거리 갱신");
-            SetRangePreview(attackStat.range);
+            SetRangePreview(attackStat.Range);
         }
     }
 

@@ -28,7 +28,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void AddGold(int amount)
     {
-        gameState.Gold += amount;
+        gameState.SetGold(gameState.Gold + amount);
         OnGoldChanged?.Invoke(gameState.Gold);
     }
 
@@ -36,20 +36,20 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         if (gameState.Gold < amount) return false;
 
-        gameState.Gold -= amount;
+        gameState.SetGold(gameState.Gold - amount);
         OnGoldChanged?.Invoke(gameState.Gold);
         return true;
     }
 
     public void AddEXP(int amount)
     {
-        gameState.currentEXP += amount;
+        gameState.SetCurrentEXP(gameState.currentEXP + amount);
         OnEXPChanged?.Invoke(gameState.currentEXP);
 
         while (gameState.currentEXP >= gameState.maxEXP)
         {
-            gameState.currentEXP -= gameState.maxEXP;
-            gameState.Level++;
+            gameState.SetCurrentEXP(gameState.currentEXP - gameState.maxEXP);
+            gameState.SetLevel(gameState.Level + 1);
             OnLevelUp?.Invoke(gameState.Level);
             OnEXPChanged?.Invoke(gameState.currentEXP);
         }

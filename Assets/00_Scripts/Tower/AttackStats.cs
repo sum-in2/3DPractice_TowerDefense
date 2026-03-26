@@ -1,12 +1,20 @@
 [System.Serializable]
 public class AttackStats
 {
-    public float attackPower;
-    public float range;
-    public float attackSpeed;
-    public float ignoreDefense;
-    public float critChance;
-    public float critDamage;
+    [UnityEngine.SerializeField] private float attackPower;
+    [UnityEngine.SerializeField] private float range;
+    [UnityEngine.SerializeField] private float attackSpeed;
+    [UnityEngine.SerializeField] private float ignoreDefense;
+    [UnityEngine.SerializeField] private float critChance;
+    [UnityEngine.SerializeField] private float critDamage;
+
+    public float AttackPower => attackPower;
+    public float Range => range;
+    public float AttackSpeed => attackSpeed;
+    public float IgnoreDefense => ignoreDefense;
+    public float CritChance => critChance;
+    public float CritDamage => critDamage;
+
     public AttackStats() { }
 
     public AttackStats(AttackStats other)

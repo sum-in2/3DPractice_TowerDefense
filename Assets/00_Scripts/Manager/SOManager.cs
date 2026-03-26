@@ -36,9 +36,9 @@ public class SOManager : Singleton<SOManager>, ITowerUpgradeNotifier
 
         foreach (Upgrade upgrade in towerUpgrade)
         {
-            if (!upgradeSODict.ContainsKey(upgrade.towerType))
-                upgradeSODict[upgrade.towerType] = new List<Upgrade>();
-            upgradeSODict[upgrade.towerType].Add(upgrade);
+            if (!upgradeSODict.ContainsKey(upgrade.TowerType))
+                upgradeSODict[upgrade.TowerType] = new List<Upgrade>();
+            upgradeSODict[upgrade.TowerType].Add(upgrade);
         }
     }
 
@@ -75,7 +75,7 @@ public class SOManager : Singleton<SOManager>, ITowerUpgradeNotifier
 
         foreach (Upgrade upgrade in towerUpgrade)
         {
-            upgrade.level = 0;
+            upgrade.ResetLevel();
         }
     }
 

@@ -7,11 +7,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Upgrade")]
 public class Upgrade : ScriptableObject
 {
-    public TowerType towerType;
-    public UpgradeType upgradeType;
-    public float increaseAmount;
-    public int cost;
-    public int level;
+    [SerializeField] private TowerType towerType;
+    [SerializeField] private UpgradeType upgradeType;
+    [SerializeField] private float increaseAmount;
+    [SerializeField] private int cost;
+    [SerializeField] private int level;
+
+    public TowerType TowerType => towerType;
+    public UpgradeType UpgradeType => upgradeType;
+    public float IncreaseAmount => increaseAmount;
+    public int Cost => cost;
+    public int Level => level;
+
+    public void ResetLevel() => level = 0;
 
     public bool TryUpgrade()
     {

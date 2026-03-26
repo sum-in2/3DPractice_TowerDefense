@@ -24,7 +24,7 @@ public class UpgradeBtn : MonoBehaviour
         Upgrade targetUpgrade = null;
         foreach (Upgrade upgradeData in upgrades)
         {
-            if (upgradeData.upgradeType == this.upgradeType)
+            if (upgradeData.UpgradeType == this.upgradeType)
             {
                 targetUpgrade = upgradeData;
                 break;

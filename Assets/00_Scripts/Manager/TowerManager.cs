@@ -49,7 +49,7 @@ public class TowerManager : Singleton<TowerManager>
         List<BaseTower> towersOfType = GetTowersOfType(towerType);
         foreach (BaseTower tower in towersOfType)
         {
-            tower.baseAttackStats = new AttackStats(SOManager.Instance.GetTowerRuntimeStat(towerType));
+            tower.SetBaseStats(new AttackStats(SOManager.Instance.GetTowerRuntimeStat(towerType)));
             tower.RefreshCurrentStats();
         }
     }
